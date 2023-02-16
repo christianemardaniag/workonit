@@ -1,0 +1,57 @@
+<mat-dialog-content>
+    <div class="container" id="resume-content">
+
+        <div class="left-side">
+            <div class="profile-picture">
+                <img [src]="student.photoURL ? student.photoURL : '/assets/images/defaultimage.jpg'" alt="Profile Picture">
+            </div>
+            <div class="student-name">
+                <h2>{{student.firstName + " "+ student.middleName + " "+ student.lastName | titlecase}}</h2>
+            </div>
+    
+        </div>
+        <div class="right-side">
+            <div class="personal-information">
+                <h3>PERSONAL INFORMATION</h3>
+                <div class="merge">
+                    <i class="material-icons">email</i>
+                    <h2>Email: {{student.email}}</h2>
+                </div>
+                <div class="merge">
+                    <i class="material-icons">phone</i>
+    
+                    <h2>Contact Number: {{student.contactNo}} </h2>
+                </div>
+                <div class="merge">
+                    <i class="material-icons">location_on</i>
+                    <h2>Address: {{student.address |titlecase}}</h2>
+                </div>
+                <div class="merge">
+                    <i class="material-icons" *ngIf="student.gender =='male'">male</i>
+                    <i class="material-icons" *ngIf="student.gender =='female'">female</i>
+                    <h2>Gender: {{student.gender | titlecase}}</h2>
+                </div>
+                <div class="merge">
+                    <i class="material-icons">numbers</i>
+                    <h2>Student Number: {{student.idno}} </h2>
+                </div>
+                <div class="merge">
+                    <i class="material-icons">school</i>
+    
+                    <h2>Section: {{student.section}} </h2>
+                 
+                </div>
+            </div>
+            <div class="skills-container">
+                <h3>SKILLS</h3>
+                <ul>
+                    <li *ngFor="let skill of student.skills">{{skill | titlecase}}</li>
+    
+                </ul>
+            </div>
+            
+        </div>
+        <button type="button" mat-raised-button (click)="generateResume()" *ngIf="showButton">Download</button>
+</div>
+
+</mat-dialog-content>

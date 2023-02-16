@@ -1,0 +1,34 @@
+<mat-dialog-content>
+    <div class="addevaluator-container">
+        <h2>Edit Recruiter</h2>
+        <form #Registerform="ngForm" (ngSubmit)="editUser(Registerform.value)">
+
+            <mat-form-field appearance="outline">
+                <mat-label>Company Name</mat-label>
+                <input matInput [(ngModel)]="recruiter.companyName" type="text" name="companyName" placeholder="Enter Company Name" #firstName="ngModel" required>
+
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Recruiter Name</mat-label>
+                <input matInput [(ngModel)]="recruiter.recruiterName" type="text" name="recruiterName" placeholder="Enter Recruiter Name" #middleName="ngModel" required="">
+            </mat-form-field>
+
+
+
+
+
+
+
+
+            <button mat-raised-button type="submit" [disabled]="Registerform.invalid">Edit</button>
+
+
+
+        </form>
+
+
+
+
+
+    </div>
+</mat-dialog-content>

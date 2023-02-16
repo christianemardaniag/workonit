@@ -1,0 +1,341 @@
+<app-navbar (menuClicked)="childEvent($event)"></app-navbar>
+<div class="side-nav">
+
+    <mat-sidenav-container>
+        <mat-sidenav [opened]="sideNavOpened" (closed)="sideNavClose()">
+            <div class="navlinks" *ngIf="checkAuth == true && user == 'student'">
+
+                <a routerLink="/StudentHome">Home</a>
+    
+    
+                <a routerLink="/StudentApplication">My Application</a>
+    
+    
+                <a routerLink="/Profile">Profile</a>
+    
+    
+                <a [matMenuTriggerFor]="menu">About Us</a>
+    
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="goToAboutWork()">About Work On It</button>
+                    <button mat-menu-item (click)="goToAboutCICT()">About CICT</button>
+                    <button mat-menu-item (click)="goToAboutDevelopers()">About the Developers</button>
+                </mat-menu>
+                <div class="buttons">
+                    <button mat-button (click)="openNotif()">
+                        <mat-icon [matBadge]="notifCounter" matBadgeOverlap="false">notifications</mat-icon>
+                      </button>
+                      <button mat-button (click)="openDialog()">
+                        <mat-icon>logout</mat-icon>
+                      </button>
+                </div>
+            
+            </div>
+    
+            <div class="navlinks" *ngIf="checkAuth == true && user == 'admin'">
+    
+                <a routerLink="/AdminDashboard">Dashboard</a>
+    
+    
+                <a routerLink="/AdminStudent">Student</a>
+    
+    
+                <a routerLink="/AdminRecruiter">Recruiter</a>
+    
+    
+                <a [matMenuTriggerFor]="menu">System Content</a>
+    
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="goToAdminAboutWork()">About Work On It</button>
+                    <button mat-menu-item (click)="goToAdminAboutCICT()">About CICT</button>
+                    <button mat-menu-item (click)="goToAdminAboutDevelopers()">About the Developers</button>
+                </mat-menu>
+    
+                <button mat-button (click)="openDialog()">
+                <mat-icon>logout</mat-icon>
+              </button>
+            </div>
+    
+            <div class="navlinks" *ngIf="checkAuth == true && user == 'recruiter'">
+    
+                <a routerLink="/RecruiterDashboard">Dashboard</a>
+    
+    
+                <a routerLink="/RecruiterApplicants">Applicants</a>
+    
+    
+                <a routerLink="/RecruiterJobOffer">Job Offer</a>
+    
+                <a routerLink="/RecruiterProfile">Profile</a>
+    
+    
+    
+    
+                <div class="buttons">
+                    <button mat-button (click)="openNotif()">
+                        <mat-icon [matBadge]="notifCounter" matBadgeOverlap="false">notifications</mat-icon>
+                      </button>
+                      <button mat-button (click)="openDialog()">
+                        <mat-icon>logout</mat-icon>
+                      </button>
+                </div>
+            </div>
+        </mat-sidenav>
+
+        <mat-sidenav-content>
+            <div class="container" id="sideNav-content">
+
+
+                <div class="actions-container">
+                    <mat-form-field appearance="outline">
+                 
+                        <mat-label>Search</mat-label>
+                        <mat-icon matPrefix>search</mat-icon>
+                        <mat-hint align="start" style="color: white;"><strong>Search for Job Position, Location, Specialization</strong> </mat-hint>
+                        <input matInput [(ngModel)]="searchText">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="filter-bar">
+                        <mat-label>Filter by Specialization</mat-label>
+                        <select matNativeControl #input (change)="applyFilter($event)" class="filter-bar">
+                            <option value="">All</option>
+                      <option value="skills">Based on Specialization</option>
+                     
+                
+                    </select>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="filter-bar">
+                        <mat-label>Filter by Company</mat-label>
+                        <select matNativeControl #input class="filter-bar" (change)="getAllJobOfferByCompany($event)">
+                            <option value="">All</option>
+                      <option *ngFor="let i of recruiters" [value]="i.id">{{i.companyName}}</option>
+                    </select>
+                    </mat-form-field>
+                 
+                </div>
+              
+            
+                <div class="joboffer-container">
+                
+                    
+                    <mat-card class="example-card" *ngFor="let jobOffer of jobOffers | paginate: { itemsPerPage: 6, currentPage: p } | filter:searchText" (click)="readMore(jobOffer)" >
+                      
+            
+                     
+                        <mat-card-header>
+                            <img mat-card-image [src]="jobOffer.companyLogo ? jobOffer.companyLogo:'./assets/images/defaultimage.jpg'">
+                        </mat-card-header>
+            
+                        <mat-card-content>
+                            <p>
+                                <b>Job Position: </b> {{jobOffer.jobPosition}}
+                            </p>
+            
+                            <p>
+                                <b>Job Description: </b> {{jobOffer.jobDescription | slice:0:100}} <a (click)="readMore(jobOffer)">Read more...</a>
+                            </p>
+                            <p>
+                                <b>Location: </b> {{jobOffer.location}}
+                            </p>
+                            <p>
+                                <b>Vacancy: </b> {{jobOffer.vacancy}}
+                            </p>
+                        </mat-card-content>
+                    
+                    </mat-card>
+                
+            
+            
+            
+                </div>
+                <pagination-controls (pageChange)="p = $event" *ngIf="jobOffers.length != 0"></pagination-controls>
+            
+                <div class="FAQ-container">
+                    <div class="FAQ-title">
+                        <h2>FREQUENTLY ASK QUESTION</h2>
+                        <img src="./assets/images/qm.png" alt="">
+                    </div>
+                    
+                    <div class="questions">
+                        <mat-accordion>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        Do I need to verify my account?
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+                                <p>WorkOnIT requires all the users to have a verified account. First, you need to use a verified account to register with our system. Second, you need to verify that you own the email you added to our system. Last once you verify your email account, you can now log in to our system using the email you attached and make sure that never share it to the other user.</p>
+                            </mat-expansion-panel>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        I didn’t receive verification email from WorkOnIT. What should I do?
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+                                <p>Don’t forget to check the spam folder if the email does not appear in your inbox. If you still can’t see or didn’t receive the verification email, report it immediately.</p>
+                            </mat-expansion-panel>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        How can I apply for a Job ?
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+                                <p>At the student home page we can see a list of job offers created by the partners of Bulacan State University. You also need to upload resume in order to apply a job offer. Uploading of resume is located in the edit profile page.</p>
+                            </mat-expansion-panel>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        How does this system will help me?
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+                                <p>WorkOnIT is a system that allows the user specifically IT Graduates to find a decent job after graduating. This system will help you to find a job that fit based on the job you want and based on the skills that you put to your skills description.
+                                </p>
+                            </mat-expansion-panel>
+                          
+                        </mat-accordion>
+                    </div>
+                    
+                </div>
+            
+            
+                <div class="developer-container">
+                    <h2>ABOUT THE DEVELOPERS</h2>
+                    <div class="developers" (click)="goToAboutTheDevelopers()">
+                        <div class="developer" *ngFor="let developer of developers">
+                            <img [src]="developer.photoURL ? developer.photoURL: '/assets/images/placeholder.png'">
+                            <p>{{developer.developerName | titlecase}} </p>
+                
+                        </div>
+                
+                    </div>
+                </div>
+            </div>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>
+
+<div class="container" id="desktop-content">
+    <div class="actions-container">
+        <mat-form-field appearance="outline">
+            <mat-icon matPrefix>search</mat-icon>
+            <mat-hint align="start" style="color: white;"><strong>Search for Job Position, Location, Specialization</strong> </mat-hint>
+
+            <mat-label>Search</mat-label>
+            <input matInput [(ngModel)]="searchText">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="filter-bar">
+            <mat-label>Filter by Specialization</mat-label>
+            <select matNativeControl #input (change)="applyFilter($event)" class="filter-bar">
+                <option value="">All</option>
+          <option value="skills">Based on Specialization</option>
+        </select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="filter-bar">
+            <mat-label>Filter by Company</mat-label>
+            <select matNativeControl #input class="filter-bar" (change)="getAllJobOfferByCompany($event)">
+                <option value="">All</option>
+          <option *ngFor="let i of recruiters" [value]="i.id">{{i.companyName}}</option>
+        </select>
+        </mat-form-field>
+     
+    </div>
+  
+
+    <div class="joboffer-container">
+    
+        
+        <mat-card class="example-card" *ngFor="let jobOffer of jobOffers | paginate: { itemsPerPage: 6, currentPage: p } | filter:searchText" (click)="readMore(jobOffer)" >
+          
+
+         
+            <mat-card-header>
+                <img mat-card-image [src]="jobOffer.companyLogo ? jobOffer.companyLogo:'./assets/images/defaultimage.jpg'">
+            </mat-card-header>
+
+            <mat-card-content>
+                <p>
+                    <b>Job Position: </b> {{jobOffer.jobPosition}}
+                </p>
+
+                <p>
+                    <b>Job Description: </b> {{jobOffer.jobDescription | slice:0:100}} <a (click)="readMore(jobOffer)">Read more...</a>
+                </p>
+                <p>
+                    <b>Location: </b> {{jobOffer.location}}
+                </p>
+                <p>
+                    <b>Vacancy: </b> {{jobOffer.vacancy}}
+                </p>
+            </mat-card-content>
+        
+        </mat-card>
+    
+
+
+
+    </div>
+    <pagination-controls (pageChange)="p = $event" *ngIf="jobOffers.length != 0"></pagination-controls>
+
+    <div class="FAQ-container">
+        <div class="FAQ-title">
+            <h2>FREQUENTLY ASK QUESTION</h2>
+            <img src="./assets/images/qm.png" alt="">
+        </div>
+        
+        <div class="questions">
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Do I need to verify my account?
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <p>WorkOnIT requires all the users to have a verified account. First, you need to use a verified account to register with our system. Second, you need to verify that you own the email you added to our system. Last once you verify your email account, you can now log in to our system using the email you attached and make sure that never share it to the other user.</p>
+                </mat-expansion-panel>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            I didn’t receive verification email from WorkOnIT. What should I do?
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <p>Don’t forget to check the spam folder if the email does not appear in your inbox. If you still can’t see or didn’t receive the verification email, report it immediately.</p>
+                </mat-expansion-panel>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            How can I apply for a Job ?
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <p>At the student home page we can see a list of job offers created by the partners of Bulacan State University. You also need to upload resume in order to apply a job offer. Uploading of resume is located in the edit profile page.</p>
+                </mat-expansion-panel>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            How does this system will help me?
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <p>WorkOnIT is a system that allows the user specifically IT Graduates to find a decent job after graduating. This system will help you to find a job that fit based on the job you want and based on the skills that you put to your skills description.
+                    </p>
+                </mat-expansion-panel>
+              
+            </mat-accordion>
+        </div>
+        
+    </div>
+
+
+    <div class="developer-container">
+        <h2>ABOUT THE DEVELOPERS</h2>
+        <div class="developers" (click)="goToAboutTheDevelopers()">
+            <div class="developer" *ngFor="let developer of developers">
+                <img [src]="developer.photoURL ? developer.photoURL: '/assets/images/placeholder.png'">
+                <p>{{developer.developerName | titlecase}} </p>
+    
+            </div>
+    
+        </div>
+    </div>
+</div>
+
+
+
+<app-footer></app-footer>

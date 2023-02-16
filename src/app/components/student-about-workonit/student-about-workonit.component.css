@@ -1,0 +1,108 @@
+.container {
+    height: max-content;
+    width: 100%;
+    display: flex;
+    
+}
+
+.left-side {
+    width: 50%;
+    background-attachment: fixed;
+    background-image: url('/assets/images/aboutwork.jpg');
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.right-side {
+    width: 50%;
+    background-color: rgba(255, 170, 40,1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #444;
+    height: 100%;
+}
+
+.right-side h2 {
+    font-weight: bolder;
+    font-size: 3rem;
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
+.right-side p {
+    width: 80%;
+    font-size: 1.5rem;
+    text-align: justify;
+    line-height: 2rem;
+}
+
+#sideNav-content {
+    display: none;
+}
+
+.navlinks {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: max-content;
+  
+}
+
+.navlinks a {
+    text-decoration: none;
+    color: #444;
+    font-size: 1.5rem;
+    margin: 20px 5px;
+  
+}
+
+.navlinks button {
+    width: 100%;
+    text-align: left;
+    height: 80px;
+}
+
+
+mat-sidenav {
+    width: 50%;
+}
+
+@media only screen and (max-width: 992px) {
+    
+
+    #desktop-content {
+        display: none;
+    }
+    #sideNav-content {
+        display: flex;
+    }
+    .left-side {
+        display: none;
+    }
+    .right-side {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 790px) {
+  
+ 
+    #desktop-content {
+        display: none;
+    }
+    #sideNav-content {
+        display: flex;
+    }
+    .left-side {
+        display: none;
+    }
+    .right-side {
+        width: 100%;
+    }
+    .right-side h2 {
+        text-align: center;
+        font-size: 3rem;
+    }
+}

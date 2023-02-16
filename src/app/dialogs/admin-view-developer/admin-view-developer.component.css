@@ -1,0 +1,110 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-picture {
+    margin-left: 55px;
+}
+
+.profile-picture img {
+    width: 300px;
+    height: 300px;
+    border-radius: 100%;
+}
+
+.profile-picture button {
+    position: relative;
+    left: -90px;
+    bottom: 50px;
+    background-color: #86A135;
+    color: #444444;
+    height: 60px;
+    width: 60px;
+    border: 2px solid #86A135;
+    transition: .3 ease;
+}
+
+.profile-picture mat-icon {
+    transform: scale(.8);
+    color: white;
+}
+
+.profile-picture button:hover {
+    background-color: white;
+}
+
+.profile-picture button:hover mat-icon {
+    color: #444;
+}
+
+.container h2 {
+    font-size: 1.5rem;
+    font-weight: bolder;
+    margin: 0 auto;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.buttons button {
+    background-color: #86A135;
+    color: white;
+    border-radius: 40px;
+    border: 2px solid #86A135;
+    transition: .5 ease;
+    margin: 10px;
+    width: 100%;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+form button:enabled,
+button[enabled] {
+    background-color: #86A135;
+    color: white;
+    border-radius: 40px;
+    border: 2px solid #86A135;
+    transition: .5 ease;
+    margin: 10px;
+    width: 100%;
+}
+
+form button:disabled,
+button[disabled] {
+    background-color: #86a1353d !important;
+    color: white;
+    border-radius: 40px;
+    transition: .5 ease;
+    margin: 10px;
+    width: 100%;
+}
+
+form button:enabled:hover {
+    background-color: white;
+    color: #444;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: #86A135;
+    border-width: 3px !important;
+}
+
+::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+    color: #86A135;
+}
+
+mat-label {
+    color: #444;
+}

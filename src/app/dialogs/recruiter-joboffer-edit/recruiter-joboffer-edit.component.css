@@ -1,0 +1,125 @@
+.container {
+    width: 100%;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+mat-form-field.mat-form-field {
+    font-size: 14px;
+    width: 80%;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: rgba(255, 170, 40,1);
+    border-width: 3px !important;
+}
+
+::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+    color: rgba(255, 170, 40,1);
+}
+
+mat-label {
+    color: #444444;
+}
+
+.container h2 {
+    color: rgba(255, 170, 40,1);
+    font-size: 1.5rem;
+}
+img {
+    width: 100%;
+    object-fit: contain;
+    cursor: pointer;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.submit-button:disabled {
+    background-color: #86a1353d;
+    color: white;
+    border-radius: 40px;
+    transition: .5 ease;
+    font-size: 1rem;
+    width: 50%;
+    height: 50px;
+    margin: 20px 10px;
+}
+
+.submit-button:enabled {
+    background-color: rgba(255, 170, 40,1);
+    color: white;
+    border-radius: 40px;
+    width: 50%;
+    border: 2px solid rgba(255, 170, 40,1);
+    transition: .5 ease;
+    font-size: 1rem;
+    height: 50px;
+    margin: 20px 10px;
+}
+
+.submit-button:enabled:hover {
+    background-color: white;
+    color: #444;
+}
+
+.skills-container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.skills-container mat-form-field {
+    width: 76%;
+}
+
+.skills-container button {
+    margin-left: 10px;
+    height: max-content;
+    background-color: rgba(255, 170, 40,1);
+    border: 2px solid rgba(255, 170, 40,1);
+    transition: .5 ease;
+}
+
+.skills-container button:hover {
+    background-color: white;
+    color: #444;
+}
+
+.inputed-skills {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.skill {
+    background-color: lightgray;
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    width: max-content;
+    align-items: center;
+    margin: 10px;
+}
+
+.skill-name {
+    margin-left: 5px;
+}
+
+.skill mat-icon {
+    transform: scale(.8);
+    cursor: pointer;
+    margin-top: 5px;
+    border: 1px solid #444;
+    border-radius: 100%;
+}

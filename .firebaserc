@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "workonit-238d0": {
+      "hosting": {
+        "WorkOnIt": [
+          "workonit-238d0"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "workonit-238d0"
+  }
+}

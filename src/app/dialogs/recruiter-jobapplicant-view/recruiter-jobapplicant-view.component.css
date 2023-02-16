@@ -1,0 +1,554 @@
+.container-pending {
+    width: 100%;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-x: hidden;
+}
+
+
+.body {
+    width: 100%;
+    height: max-content;
+    display: flex;
+    justify-content: space-evenly;
+    background-color: #444;
+}
+.joboffer-information h2 {
+    text-align: center;
+    font-weight: bolder;
+
+}
+
+.joboffer-information {
+    width: 30%;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
+    color: white;
+    padding: 30px;
+    background-color: #444;
+   
+   
+}
+.student-information {
+    width: 70%;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
+    color: white;
+    padding: 30px;
+ 
+    padding-left: 5%;
+}
+.student-container {
+    display: flex;
+    border-right: 2px solid grey;
+    width: 100%;
+
+}
+.sentiment-chart {
+    width: 40%;
+    height: 300px;
+
+}
+.sentiment-container h4 {
+    color: white;
+    font-weight: bolder;
+}
+.sentiment-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.student-information h2 {
+
+ font-weight: bolder;
+ margin-left: 40px;
+}
+.student-information a {
+    color: rgb(60, 60, 251);
+}
+.student-information img {
+    width: 250px;
+    height: 200px;
+    object-fit: contain;
+    margin-bottom: 15px;
+}
+
+.buttons {
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0 auto;
+}
+
+.buttons button {
+    background-color: rgba(255, 170, 40,1);
+    color: white;
+    border-radius: 40px;
+    border: 2px solid rgba(255, 170, 40,1);
+    transition: .5 ease;
+    font-size: 1rem;
+    height: 50px;
+    margin: 20px auto;
+}
+
+.buttons button:hover {
+    background-color: white;
+    color: #444;
+}
+
+.container-processing {
+    width: 100%;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    
+}
+
+
+.container-processing .student-information {
+    width: 100%;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
+    color: white;
+  
+    background-color: #444;
+   
+
+}
+.container-processing .student-information h2 {
+
+ font-weight: bolder;
+ margin-left: 40px;
+}
+.container-processing .student-information a {
+    color: rgb(60, 60, 251);
+}
+.container-processing .student-information img {
+    width: 250px;
+    height: 200px;
+    object-fit: contain;
+    margin-bottom: 15px;
+}
+
+/* CHAT BOX CSS */
+
+.message-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.chat-box {
+    border: 4px solid black;
+    border-bottom: 4px solid rgba(255, 170, 40,1);
+    border-top: 5px solid rgba(255, 170, 40,1);
+    width: 70%;
+    height: 400px;
+    padding: 20px;
+    overflow-y: auto;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.message-box {
+    border-left: 4px solid black;
+    border-bottom: 4px solid black;
+    border-right: 4px solid black;
+    display: flex;
+    border-radius: 0px 0px 20px 20px;
+    width: 70%;
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.recruiter-information {
+    border-left: 4px solid black;
+    border-top: 4px solid black;
+    border-right: 4px solid black;
+    border-radius: 20px 20px 0px 0px;
+    width: 70%;
+    padding: 20px;
+    background-color: #444;
+    display: flex;
+    align-items: center;
+}
+
+.recruiter-information img {
+    height: 80px;
+    width: 80px;
+    border-radius: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.recruiter-information h2 {
+    display: inline-block;
+    font-size: 21px;
+    margin-left: 20px;
+    color: rgba(255, 170, 40,1);
+}
+
+form {
+    width: 100%;
+    display: flex;
+}
+
+textarea {
+    height: 50px;
+}
+
+.message-box span {
+    font-size: 35px;
+}
+
+.attachment {
+    margin: 0 10px;
+    width: 10%;
+}
+
+.attachment button {
+    border: none;
+    background: #444;
+    cursor: pointer;
+    border-radius: 100%;
+    color: rgba(255, 170, 40,1);
+    padding: 10px;
+    border: 1px solid #444;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+.chat-date {
+    font-size: 9px;
+    margin: 5px 10px;
+}
+
+.right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: max-content;
+    margin-left: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: max-content;
+    margin: 10px 0;
+    padding: 10px;
+   
+}
+
+.right img {
+    height: 200px;
+    width: 300px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.right a {
+    color: rgba(255, 170, 40,1);
+}
+
+.left img {
+    height: 300px;
+    width: 300px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.recruiter-image {
+    position: relative;
+    top: 20px;
+}
+
+.recruiter-image img {
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    z-index: 1;
+}
+
+.recruiter-message {
+    background-color: #444;
+    color: rgba(255, 170, 40,1);
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.recruiter-image {
+    position: relative;
+    top: 20px;
+}
+
+.recruiter-image img {
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    z-index: 1;
+}
+
+.recruiter-message {
+    background-color: rgba(255, 170, 40,1);
+    color: white;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.student-image {
+    position: relative;
+    top: 20px;
+}
+
+.student-image img {
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    z-index: 1;
+}
+
+.student-message {
+    background-color: #444;
+    color: white;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.student-image {
+    position: relative;
+    top: 20px;
+}
+
+.student-image img {
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    z-index: 1;
+}
+
+
+
+.attachment-name {
+    position: relative;
+    background-color: rgba(255, 170, 40,1);
+    color: white;
+    top: -10px;
+    width: 50%;
+    border-radius: 5px;
+    z-index: 1;
+    padding: 3px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.attachment-name button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    float: right;
+}
+
+@media only screen and (max-width: 992px) {
+    
+    .student-information h2 {
+       text-align: start;
+    }
+    mat-form-field {
+        width: 80%;
+    }
+    form button {
+        width: 100%;
+    }
+    .attachment mat-icon {
+        font-size: 1.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .header img {
+        height: 100px;
+        width: 100px;
+        object-fit: contain;
+        object-position: center;
+    }
+    textarea {
+        height: 50px;
+        width: 100%;
+    }
+    textarea::placeholder {
+        font-size: .8rem;
+    }
+    .buttons {
+        width: 70%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 20px auto;
+    }
+    .buttons button {
+        width: 100%;
+        font-size: .7rem;
+    }
+    .attachment {
+        width: 25%;
+        margin: 0 5px;
+    }
+
+
+}
+
+@media only screen and (max-width: 790px) {
+    .body {
+        flex-direction: column;
+    }
+    .student-information{
+        border: none;
+        width: 100%;
+    }
+    
+    .joboffer-information {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        padding-left: 5%;
+    }
+    .joboffer-information h2{
+        text-align: start;
+    }
+    .joboffer-information p{
+        width: 90%;
+    }
+    .message-container {
+        width: 100%;
+    }
+    .chat-box {
+        width: 90%;
+        padding: 0;
+        border: 2px solid black;
+        border-bottom: 2px solid black;
+        border-top: 3px solid rgba(255, 170, 40,1);
+    }
+    .right img {
+        height: 80px;
+        width: 150px;
+    }
+    .left img {
+        height: 80px;
+        width: 150px;
+    }
+    .recruiter-image img {
+        width: 30px;
+        height: 30px;
+    }
+    .student-image img {
+        width: 30px;
+        height: 30px;
+    }
+    .message-box {
+        width: 90%;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: space-between;
+        border-left: 2px solid black;
+        border-bottom: 2px solid black;
+        border-right: 2px solid black;
+    }
+    .recruiter-information {
+        width: 90%;
+        padding: 0;
+        margin: 0;
+        border-left: 2px solid black;
+        border-top: 2px solid black;
+        border-right: 2px solid black;
+    }
+    .recruiter-information h2 {
+        font-size: .8rem;
+    }
+    .recruiter-information img {
+        width: 35px;
+        height: 35px;
+        margin: 10px;
+    }
+    mat-form-field {
+        width: 55%;
+    }
+    textarea {
+        height: 50px;
+        width: 100%;
+    }
+    textarea::placeholder {
+        font-size: .8rem;
+    }
+    .buttons {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .buttons button {
+        width: 100%;
+        font-size: .7rem;
+    }
+    .attachment {
+        width: 25%;
+        margin: 0 5px;
+    }
+    .attachment button {
+        border: none;
+        background: #444;
+        cursor: pointer;
+        border-radius: 100%;
+        color: rgba(255, 170, 40,1);
+        padding: 5px;
+        border: 1px solid #444;
+    }
+    .attachment mat-icon {
+        font-size: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    form {
+        width: 100%;
+    }
+    form button {
+        width: 10%;
+    }
+    
+
+}
+

@@ -1,0 +1,130 @@
+<mat-dialog-content>
+    <div class="container">
+        <div class="header">
+            <div class="header-companyLogo">
+                
+                <img [src]="recruiter.companyLogo ? recruiter.companyLogo: './assets/images/defaultimage.jpg'">
+                <div class="rating">
+    
+                    <ngx-star-rating [(ngModel)] = "rating" [id]="'rating'" name="rating" [disabled]="true" ></ngx-star-rating>
+                    <h3>{{ratingLabel | number : '1.2-2'}}</h3>
+                </div>
+            </div>
+      
+            <div class="pie-chart">
+                <angular-d3-cloud
+                [data]="sentimentData"
+                [width]="300"
+                [height]="300"
+                [padding]="2"
+                font="serif"
+                [rotate]="0"
+                [autoFill]="true"
+                *ngIf="sentimentData.length != 0"
+                ></angular-d3-cloud>
+            </div>
+          
+
+   
+        </div>
+        <div class="body">
+            
+            <p> <b>Job Position: </b>{{jobOffer.jobPosition}} </p>
+            <p> <b>Job Description: </b>{{jobOffer.jobDescription}}</p>
+            <p> <b>Location: </b>{{jobOffer.location}}</p>
+            <p> <b>Vacancy: </b>{{jobOffer.vacancy}}</p>
+            <p> <b>Hiring Date: </b>{{jobOffer.dateDuration}}</p>
+            <p> <b>Skill/s Needed: </b>
+
+            </p>
+            <ul>
+                <li *ngFor="let skill of jobOffer.skills"> {{skill | titlecase}}</li>
+            </ul>
+            
+           
+
+        </div>
+   
+      
+        <div class="message-container" *ngIf="jobOfferData.status != 'Pending'">
+            <div class="recruiter-information">
+                <img [src]="recruiter.profilePicture ? recruiter.profilePicture:'./assets/images/defaultimage.jpg'">
+                <h2>{{recruiter.name | titlecase}}</h2>
+
+
+            </div>
+            <div class="chat-box" #chatBox>
+                <ng-container *ngFor="let message of messages">
+
+
+                    <div class="right" *ngIf="message.sender == userId">
+                        <div class="student-image">
+                            <img [src]="student.profilePicture ? student.profilePicture: './assets/images/defaultimage.jpg'" alt="">
+                        </div>
+                        <div class="student-message">
+
+                            <p> {{message.message}}</p>
+                            <a [href]="message.attachment" target="_blank" *ngIf="message.attachment && message.attachmentType == 'image'"> <img [src]="message.attachment"></a>
+                            <a [href]="message.attachment" target="_blank" *ngIf="message.attachment && message.attachmentType == 'application'">{{message.attachmentName}}</a>
+                            <a [href]="message.attachment" target="_blank" *ngIf="message.attachment && message.attachmentType == 'text'">{{message.attachmentName}}</a>
+                        </div>
+
+                        <p class="chat-date"> {{message.date}}</p>
+                  
+                    </div>
+                    <div class="left" *ngIf="message.sender != userId">
+                        <div class="recruiter-image">
+                            <img [src]="recruiter.profilePicture ? recruiter.profilePicture:'./assets/images/defaultimage.jpg'">
+
+
+                        </div>
+                        <div class="recruiter-message">
+                            <p> {{message.message}}</p>
+                            
+                            <a [href]="message.attachment" target="_blank" *ngIf="message.attachment && message.attachmentType == 'image'"> <img [src]="message.attachment"></a>
+                            <a [href]="message.attachment" target="_blank" *ngIf="message.attachment && message.attachmentType == 'application'">{{message.attachmentName}}</a>
+                            <a [href]="message.attachment" target="_blank" *ngIf="message.attachment && message.attachmentType == 'text'">{{message.attachmentName}}</a>
+                        </div>
+
+                        <p class="chat-date"> {{message.date}}</p>
+                    
+
+                       
+                    </div>
+                </ng-container>
+            </div>
+
+            <div class="message-box">
+                <div class="attachment">
+                    <button (click)="attachment.click()">  <mat-icon> file_present </mat-icon> </button>
+
+                    <input type="file" hidden accept="application/pdf,application/text, image/*" name="attachment" id="attachment" ngModel #attachment (change)="getAttachment($event)">
+                </div>
+                <form #Responsebox="ngForm" (ngSubmit)="submitResponse(Responsebox.value)">
+
+                    <mat-form-field appearance="outline">
+                        <div class="attachment-name" *ngIf="attachmentName">
+                            <button (click)="removeAttachment()"><mat-icon > close</mat-icon></button>
+                            <p>{{attachmentName}}</p>
+                        </div>
+
+                        <mat-label>Message</mat-label>
+                        <textarea matInput [(ngModel)]="message" type="text" name="message" placeholder="Enter your message here">
+                            
+                            </textarea>
+
+                    </mat-form-field>
+                    <input type="hidden" name="jobOfferId" [(ngModel)]="jobOfferData.id" #applicationId="ngModel">
+                    <button mat-button type="submit"><span class="material-icons">message</span></button>
+                </form>
+            </div>
+       
+    </div>
+    <div class="buttons">
+        <button mat-raised-button (click)="addReview()" *ngIf="jobOfferData.status == 'Hired' && isReviewed == false && isThreeMonthsElapse == true" >Add Review</button>
+        <button mat-raised-button (click)="cancelJobOffer()" *ngIf="jobOfferData.status == 'Pending'">Cancel</button>
+        <button mat-raised-button (click)="acceptHire()" *ngIf="jobOfferData.status == 'Confirmation'">Accept</button>
+        <button mat-raised-button (click)="rejectHire()" *ngIf="jobOfferData.status == 'Confirmation'">Reject</button>
+    </div>
+    </div>
+</mat-dialog-content>

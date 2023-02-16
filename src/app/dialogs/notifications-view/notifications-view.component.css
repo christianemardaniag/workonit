@@ -1,0 +1,28 @@
+.container{
+    display: flex;
+    flex-direction: column;
+}
+.notification {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border-bottom: 1px solid grey;
+    cursor: pointer;
+}
+.notification img {
+    height: 100px;
+    width: 100px;
+    object-fit: contain;
+
+}
+.details {
+    margin-left: 10px;
+    font-size: 1rem;
+}
+
+.unread{
+    background-color: rgba(21, 138, 248, 0.304);
+}
+h1 {
+    text-align: center;
+}

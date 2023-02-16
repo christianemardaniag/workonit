@@ -1,0 +1,367 @@
+<app-navbar (menuClicked)="childEvent($event)"></app-navbar>
+<div class="side-nav">
+
+    <mat-sidenav-container>
+        <mat-sidenav [opened]="sideNavOpened" (closed)="sideNavClose()">
+            <div class="navlinks" *ngIf="checkAuth == true && user == 'student'">
+
+                <a routerLink="/StudentHome">Home</a>
+    
+    
+                <a routerLink="/StudentApplication">My Application</a>
+    
+    
+                <a routerLink="/Profile">Profile</a>
+    
+    
+                <a [matMenuTriggerFor]="menu">About Us</a>
+    
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="goToAboutWork()">About Work On It</button>
+                    <button mat-menu-item (click)="goToAboutCICT()">About CICT</button>
+                    <button mat-menu-item (click)="goToAboutDevelopers()">About the Developers</button>
+                </mat-menu>
+                <div class="nav-buttons">
+                    <button mat-button (click)="openNotif()">
+                        <mat-icon [matBadge]="notifCounter" matBadgeOverlap="false">notifications</mat-icon>
+                      </button>
+                      <button mat-button (click)="openDialog()">
+                        <mat-icon>logout</mat-icon>
+                      </button>
+                </div>
+            
+            </div>
+    
+            <div class="navlinks" *ngIf="checkAuth == true && user == 'admin'">
+    
+                <a routerLink="/AdminDashboard">Dashboard</a>
+    
+    
+                <a routerLink="/AdminStudent">Student</a>
+    
+    
+                <a routerLink="/AdminRecruiter">Recruiter</a>
+    
+    
+                <a [matMenuTriggerFor]="menu">System Content</a>
+    
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="goToAdminAboutWork()">About Work On It</button>
+                    <button mat-menu-item (click)="goToAdminAboutCICT()">About CICT</button>
+                    <button mat-menu-item (click)="goToAdminAboutDevelopers()">About the Developers</button>
+                </mat-menu>
+    
+                <button mat-button (click)="openDialog()">
+                <mat-icon>logout</mat-icon>
+              </button>
+            </div>
+    
+            <div class="navlinks" *ngIf="checkAuth == true && user == 'recruiter'">
+    
+                <a routerLink="/RecruiterDashboard">Dashboard</a>
+    
+    
+                <a routerLink="/RecruiterApplicants">Applicants</a>
+    
+    
+                <a routerLink="/RecruiterJobOffer">Job Offer</a>
+    
+                <a routerLink="/RecruiterProfile">Profile</a>
+    
+    
+    
+    
+                <div class="nav-buttons">
+                    <button mat-button (click)="openNotif()">
+                        <mat-icon [matBadge]="notifCounter" matBadgeOverlap="false">notifications</mat-icon>
+                      </button>
+                      <button mat-button (click)="openDialog()">
+                        <mat-icon>logout</mat-icon>
+                      </button>
+                </div>
+            </div>
+        </mat-sidenav>
+
+        <mat-sidenav-content>
+            <div class="container" id="sideNav-content">
+                <div class="left-side">
+                    <div class="profile-picture">
+                        <img [src]="student.photoURL ? student.photoURL : '/assets/images/defaultimage.jpg'" alt="Profile Picture">
+                        <button mat-mini-fab (click)="profilepic.click()">
+                            <mat-icon>edit</mat-icon>
+                           </button>
+                        <input type="file" name="profilepic" #profilepic hidden (change)="uploadImage($event)" accept="image/*">
+                    </div>
+                    <div class="student-name">
+                        <h2>{{student.firstName + " "+ student.middleName + " "+ student.lastName | titlecase}}</h2>
+                    </div>
+                </div>
+                <div class="right-side">
+                    <form #Updateform="ngForm" (ngSubmit)="editProfileDetails(Updateform.value)" id="Updateform">
+                        <div class="personal-information">
+                            <h3>PERSONAL INFORMATION</h3>
+                            <div class="form-merge">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>First Name</mat-label>
+                                    <input matInput [(ngModel)]="student.firstName" placeholder="Enter First Name" #firstName="ngModel" required type="text" name="firstName"> <br>
+            
+                                </mat-form-field>
+            
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Middle Name</mat-label>
+                                    <input matInput [(ngModel)]="student.middleName" placeholder="Enter Middle Name" #middleName="ngModel" type="text" name="middleName"> <br>
+            
+                                </mat-form-field>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Last Name</mat-label>
+                                    <input matInput [(ngModel)]="student.lastName" placeholder="Enter Last Name" #lastName="ngModel" required type="text" name="lastName"> <br>
+            
+                                </mat-form-field>
+                            </div>
+            
+            
+            
+            
+            
+            
+                            <div class="form-merge">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Section</mat-label>
+                                    <select matNativeControl required name="section" [(ngModel)]="student.section" #section="ngModel">
+                                            
+                                          <option value="A">A</option>
+                                          <option value="B">B</option>
+                                          <option value="C">C</option>
+                                          <option value="D">D</option>
+                                          <option value="E">E</option>
+                                          <option value="F">F</option>
+                                          <option value="G">G</option>
+                                          <option value="H">H</option>
+                                          <option value="I">I</option>
+                                          <option value="J">J</option>
+                                          <option value="K">K</option>
+                                          <option value="L">L</option>
+                                          <option value="M">M</option>
+                                          <option value="N">N</option>
+                                          <option value="O">O</option>
+                                          <option value="P">P</option>
+                                          <option value="Q">Q</option>
+                                          <option value="R">R</option>
+                                          <option value="S">S</option>
+                                          <option value="T">T</option>
+                                          <option value="U">U</option>
+                                          <option value="V">V</option>
+                                          <option value="W">W</option>
+                                          <option value="X">X</option>
+                                          <option value="Y">Y</option>
+                                          <option value="Z">Z</option>
+                                        </select>
+                                </mat-form-field>
+            
+                                <mat-form-field appearance="outline">
+                                    <mat-label>ID No.</mat-label>
+                                    <input matInput [(ngModel)]="student.idno" placeholder="Enter ID No" #idNo="ngModel" required type="text" name="idNo"> <br>
+            
+                                </mat-form-field>
+                            </div>
+            
+                            <div class="form-merge">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Address</mat-label>
+                                    <input matInput [(ngModel)]="student.address" placeholder="Enter Address" #address="ngModel" required type="text" name="address"> <br>
+            
+                                </mat-form-field>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Contact Number</mat-label>
+                                    <span matPrefix>+63 &nbsp;</span>
+                                    <input matInput [(ngModel)]="student.contactNo" type="text" name="contactNo" placeholder="Enter Contact Number" #contactNo="ngModel" required pattern="^9\d{9}$">
+                                    <mat-error *ngIf="contactNo.invalid">Contact number must start with 9 followed by 9 digits. (Ex. 92105....)</mat-error>
+                                </mat-form-field>
+                            </div>
+            
+                        </div>
+                        <div class="skills-container">
+                            <h3>SKILLS</h3>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Skills</mat-label>
+                                <input matInput [(ngModel)]="inputedSkill" type="text" name="skills" placeholder="Enter Skill" #skill="ngModel" (ngModelChange)="getInputSkill($event)">
+                            </mat-form-field>
+                            <button mat-mini-fab color="warn" aria-label="Example icon button with a home icon" (click)="addSkill()" type="button">
+                                <mat-icon >add</mat-icon>
+                              </button>
+                            <div class="inputted-skills">
+                                <div class="skill" *ngFor="let skill of skills;let i = index">
+                                    <div class="skill-name">
+                                        {{skill}}
+                                    </div>
+                                    <div class="button" (click)="removeSkill(i)">
+                                        <mat-icon>close</mat-icon>
+                                    </div>
+            
+                                </div>
+                            </div>
+            
+                        </div>
+                        <div class="resume-container">
+                            <h3>RESUME</h3>
+                            <div class="merge">
+                                <i class="material-icons">link</i>
+            
+                                <a [href]="student.resume" *ngIf="student.resume" target="_blank">Link of the resume</a>
+                                <p *ngIf="!student.resume">No resume uploaded</p>
+                                <button mat-mini-fab (click)="resume.click()" type="button">
+                                    <mat-icon>edit</mat-icon>
+                                   </button>
+                                <input type="file" name="resume" #resume hidden (change)="uploadResume($event)" accept="application/pdf">
+                            </div>
+                        </div>
+                        <div class="buttons">
+                            <button type="button" mat-raised-button (click)="resetPassword()">Reset Password</button>
+                            <button type="submit" mat-raised-button form="Updateform" [disabled]="Updateform.invalid">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>
+<div class="container" id="desktop-content">
+    <div class="left-side">
+        <div class="profile-picture">
+            <img [src]="student.photoURL ? student.photoURL : '/assets/images/defaultimage.jpg'" alt="Profile Picture">
+            <button mat-mini-fab (click)="profilepic.click()">
+                <mat-icon>edit</mat-icon>
+               </button>
+            <input type="file" name="profilepic" #profilepic hidden (change)="uploadImage($event)" accept="image/*">
+        </div>
+        <div class="student-name">
+            <h2>{{student.firstName + " "+ student.middleName + " "+ student.lastName | titlecase}}</h2>
+        </div>
+    </div>
+    <div class="right-side">
+        <form #Updateform="ngForm" (ngSubmit)="editProfileDetails(Updateform.value)" id="Updateform">
+            <div class="personal-information">
+                <h3>PERSONAL INFORMATION</h3>
+                <div class="form-merge">
+                    <mat-form-field appearance="outline">
+                        <mat-label>First Name</mat-label>
+                        <input matInput [(ngModel)]="student.firstName" placeholder="Enter First Name" #firstName="ngModel" required type="text" name="firstName"> <br>
+
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Middle Name</mat-label>
+                        <input matInput [(ngModel)]="student.middleName" placeholder="Enter Middle Name" #middleName="ngModel" type="text" name="middleName"> <br>
+
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Last Name</mat-label>
+                        <input matInput [(ngModel)]="student.lastName" placeholder="Enter Last Name" #lastName="ngModel" required type="text" name="lastName"> <br>
+
+                    </mat-form-field>
+                </div>
+
+
+
+
+
+
+                <div class="form-merge">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Section</mat-label>
+                        <select matNativeControl required name="section" [(ngModel)]="student.section" #section="ngModel">
+                                
+                              <option value="A">A</option>
+                              <option value="B">B</option>
+                              <option value="C">C</option>
+                              <option value="D">D</option>
+                              <option value="E">E</option>
+                              <option value="F">F</option>
+                              <option value="G">G</option>
+                              <option value="H">H</option>
+                              <option value="I">I</option>
+                              <option value="J">J</option>
+                              <option value="K">K</option>
+                              <option value="L">L</option>
+                              <option value="M">M</option>
+                              <option value="N">N</option>
+                              <option value="O">O</option>
+                              <option value="P">P</option>
+                              <option value="Q">Q</option>
+                              <option value="R">R</option>
+                              <option value="S">S</option>
+                              <option value="T">T</option>
+                              <option value="U">U</option>
+                              <option value="V">V</option>
+                              <option value="W">W</option>
+                              <option value="X">X</option>
+                              <option value="Y">Y</option>
+                              <option value="Z">Z</option>
+                            </select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>ID No.</mat-label>
+                        <input matInput [(ngModel)]="student.idno" placeholder="Enter ID No" #idNo="ngModel" required type="text" name="idNo"> <br>
+
+                    </mat-form-field>
+                </div>
+
+                <div class="form-merge">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Address</mat-label>
+                        <input matInput [(ngModel)]="student.address" placeholder="Enter Address" #address="ngModel" required type="text" name="address"> <br>
+
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Contact Number</mat-label>
+                        <span matPrefix>+63 &nbsp;</span>
+                        <input matInput [(ngModel)]="student.contactNo" type="text" name="contactNo" placeholder="Enter Contact Number" #contactNo="ngModel" required>
+                    </mat-form-field>
+                </div>
+
+            </div>
+            <div class="skills-container">
+                <h3>SKILLS</h3>
+                <mat-form-field appearance="outline">
+                    <mat-label>Skills</mat-label>
+                    <input matInput [(ngModel)]="inputedSkill" type="text" name="skills" placeholder="Enter Skill" #skill="ngModel" (ngModelChange)="getInputSkill($event)">
+                </mat-form-field>
+                <button mat-mini-fab color="warn" aria-label="Example icon button with a home icon" (click)="addSkill()" type="button">
+                    <mat-icon >add</mat-icon>
+                  </button>
+                <div class="inputted-skills">
+                    <div class="skill" *ngFor="let skill of skills;let i = index">
+                        <div class="skill-name">
+                            {{skill}}
+                        </div>
+                        <div class="button" (click)="removeSkill(i)">
+                            <mat-icon>close</mat-icon>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="resume-container">
+                <h3>RESUME</h3>
+                <div class="merge">
+                    <i class="material-icons">link</i>
+
+                    <a [href]="student.resume" *ngIf="student.resume" target="_blank">Link of the resume</a>
+                    <p *ngIf="!student.resume">No resume uploaded</p>
+                    <button mat-mini-fab (click)="resume.click()" type="button">
+                        <mat-icon>edit</mat-icon>
+                       </button>
+                    <input type="file" name="resume" #resume hidden (change)="uploadResume($event)" accept="application/pdf">
+                </div>
+            </div>
+            <div class="buttons">
+                <button type="button" mat-raised-button (click)="resetPassword()">Reset Password</button>
+                <button type="submit" mat-raised-button form="Updateform" [disabled]="Updateform.invalid">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+<app-footer></app-footer>

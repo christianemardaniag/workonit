@@ -1,0 +1,59 @@
+<mat-dialog-content>
+    <div class="container">
+        <div class="left-side">
+            <div class="profile-picture">
+                <img [src]="recruiter.photoURL ? recruiter.photoURL : '/assets/images/defaultimage.jpg'" alt="Profile Picture">
+            </div>
+            <div class="recruiter-name">
+                <h2>{{recruiter.recruiterName | titlecase}}</h2>
+            </div>
+        </div>
+        <div class="right-side">
+            <div class="personal-information">
+                <h3>PERSONAL INFORMATION</h3>
+                <div class="merge">
+                    <i class="material-icons">email</i>
+                    <h2>Email: {{recruiter.email}}</h2>
+                </div>
+                <div class="merge">
+                    <i class="material-icons">phone</i>
+    
+                    <h2 *ngIf="recruiter.contactNo">Contact Number: {{recruiter.contactNo}} </h2>
+                    <h2 *ngIf="!recruiter.contactNo">Contact Number: No contact number </h2>
+                </div>
+                <div class="sentiment-chart" >
+                    <h3>SENTIMENT ANALYSIS</h3>
+                    <angular-d3-cloud
+                    [data]="sentimentData"
+                    [width]="300"
+                    [height]="300"
+                    [padding]="2"
+                    font="serif"
+                    [rotate]="0"
+                    [autoFill]="true"
+                    *ngIf="sentimentData.length != 0"
+                    (click)="viewSentiment()"></angular-d3-cloud>
+                    <div class="rating">
+    
+                        <ngx-star-rating [(ngModel)] = "rating" [id]="'rating'" name="rating" [disabled]="true" ></ngx-star-rating>
+                        <h5>{{ratingLabel | number : '1.2-2'}}</h5>
+                    </div>
+                    <h2 *ngIf="sentimentData.length == 0">No data to show</h2>
+            
+                </div>
+    
+    
+                <div class="company-container">
+                    <h3>COMPANY LOGO</h3>
+                    <div class="merge">
+                        <i class="material-icons" *ngIf="!recruiter.companyLogo">attachment</i>
+    
+                        <img [src]="recruiter.companyLogo" *ngIf="recruiter.companyLogo">
+                        <p *ngIf="!recruiter.companyLogo">No company logo uploaded</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</mat-dialog-content>

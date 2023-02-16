@@ -1,0 +1,190 @@
+<app-navbar (menuClicked)="childEvent($event)"></app-navbar>
+<div class="side-nav">
+
+    <mat-sidenav-container>
+        <mat-sidenav [opened]="sideNavOpened" (closed)="sideNavClose()">
+            <div class="navlinks" *ngIf="checkAuth == true && user == 'student'">
+
+                <a routerLink="/StudentHome">Home</a>
+    
+    
+                <a routerLink="/StudentApplication">My Application</a>
+    
+    
+                <a routerLink="/Profile">Profile</a>
+    
+    
+                <a [matMenuTriggerFor]="menu">About Us</a>
+    
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="goToAboutWork()">About Work On It</button>
+                    <button mat-menu-item (click)="goToAboutCICT()">About CICT</button>
+                    <button mat-menu-item (click)="goToAboutDevelopers()">About the Developers</button>
+                </mat-menu>
+                <div class="nav-buttons">
+                    <button mat-button (click)="openNotif()">
+                        <mat-icon [matBadge]="notifCounter" matBadgeOverlap="false">notifications</mat-icon>
+                      </button>
+                      <button mat-button (click)="openDialog()">
+                        <mat-icon>logout</mat-icon>
+                      </button>
+                </div>
+            
+            </div>
+    
+            <div class="navlinks" *ngIf="checkAuth == true && user == 'admin'">
+    
+                <a routerLink="/AdminDashboard">Dashboard</a>
+    
+    
+                <a routerLink="/AdminStudent">Student</a>
+    
+    
+                <a routerLink="/AdminRecruiter">Recruiter</a>
+    
+    
+                <a [matMenuTriggerFor]="menu">System Content</a>
+    
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="goToAdminAboutWork()">About Work On It</button>
+                    <button mat-menu-item (click)="goToAdminAboutCICT()">About CICT</button>
+                    <button mat-menu-item (click)="goToAdminAboutDevelopers()">About the Developers</button>
+                </mat-menu>
+    
+                <button mat-button (click)="openDialog()">
+                <mat-icon>logout</mat-icon>
+              </button>
+            </div>
+    
+            <div class="navlinks" *ngIf="checkAuth == true && user == 'recruiter'">
+    
+                <a routerLink="/RecruiterDashboard">Dashboard</a>
+    
+    
+                <a routerLink="/RecruiterApplicants">Applicants</a>
+    
+    
+                <a routerLink="/RecruiterJobOffer">Job Offer</a>
+    
+                <a routerLink="/RecruiterProfile">Profile</a>
+    
+    
+    
+    
+                <div class="nav-buttons">
+                    <button mat-button (click)="openNotif()">
+                        <mat-icon [matBadge]="notifCounter" matBadgeOverlap="false">notifications</mat-icon>
+                      </button>
+                      <button mat-button (click)="openDialog()">
+                        <mat-icon>logout</mat-icon>
+                      </button>
+                </div>
+            </div>
+        </mat-sidenav>
+
+        <mat-sidenav-content>
+            <div class="container" id="sideNav-content">
+                <mat-form-field appearance="outline">
+                    <mat-label>Search</mat-label>
+                    <mat-icon matPrefix>search</mat-icon>
+                    <mat-hint align="start" style="color: white;"><strong>Search for Job Position, Location, Specialization</strong> </mat-hint>
+                    <input matInput [(ngModel)]="searchText">
+                </mat-form-field>
+                <div class="buttons">
+                    <div class="a2-button">
+                        <button type="button" mat-raised-button (click)="getActiveJobOffer()">ACTIVE</button>
+                        <button type="button" mat-raised-button (click)="getArchiveJobOffer()">ARCHIVED</button>
+                    </div>
+                    <div class="a1-button">
+                        <button type="button" mat-raised-button (click)="openAddJobOffer()">ADD JOB OFFER</button>
+                    </div>
+            
+            
+                </div>
+                <div class="joboffer-container">
+                    <mat-card class="example-card" *ngFor="let jobOffer of jobOffers | paginate: { itemsPerPage: 6, currentPage: p } | filter:searchText  " (click)="readMore(jobOffer)">
+                        <mat-card-header>
+                            <img mat-card-image [src]="recruiter.companyLogo ? recruiter.companyLogo:'./assets/images/defaultimage.jpg'">
+                        </mat-card-header>
+            
+                        <mat-card-content>
+                            <p>
+                                <b>Job Position: </b> {{jobOffer.jobPosition}}
+                            </p>
+            
+                            <p>
+                                <b>Job Description: </b> {{jobOffer.jobDescription | slice:0:100}} <a (click)="readMore(jobOffer)">Read more...</a>
+                            </p>
+                            <p>
+                                <b>Location: </b> {{jobOffer.location}}
+                            </p>
+                            <p>
+                                <b>Vacancy: </b> {{jobOffer.vacancy}}
+                            </p>
+                        </mat-card-content>
+            
+                    </mat-card>
+            
+            
+            
+            
+                </div>
+                <pagination-controls (pageChange)="p = $event" *ngIf="jobOffers.length != 0"></pagination-controls>
+            </div>
+            
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>
+
+<div class="container" id="desktop-content">
+    <mat-form-field appearance="outline">
+        <mat-label>Search</mat-label>
+        <mat-icon matPrefix>search</mat-icon>
+        <mat-hint align="start" style="color: white;"><strong>Search for Job Position, Location, Specialization</strong> </mat-hint>
+        <input matInput [(ngModel)]="searchText">
+    </mat-form-field>
+    <div class="buttons">
+        <div class="a2-button">
+            <button type="button" mat-raised-button (click)="getActiveJobOffer()">ACTIVE</button>
+            <button type="button" mat-raised-button (click)="getArchiveJobOffer()">ARCHIVED</button>
+        </div>
+        <div class="a1-button">
+            <button type="button" mat-raised-button (click)="openAddJobOffer()">ADD JOB OFFER</button>
+        </div>
+
+
+    </div>
+    <div class="joboffer-container">
+        <mat-card class="example-card" *ngFor="let jobOffer of jobOffers | paginate: { itemsPerPage: 6, currentPage: p } | filter:searchText  " (click)="readMore(jobOffer)">
+            <mat-card-header>
+                <img mat-card-image [src]="recruiter.companyLogo ? recruiter.companyLogo:'./assets/images/defaultimage.jpg'">
+            </mat-card-header>
+
+            <mat-card-content>
+                <p>
+                    <b>Job Position: </b> {{jobOffer.jobPosition}}
+                </p>
+
+                <p>
+                    <b>Job Description: </b> {{jobOffer.jobDescription | slice:0:100}} <a (click)="readMore(jobOffer)">Read more...</a>
+                </p>
+                <p>
+                    <b>Location: </b> {{jobOffer.location}}
+                </p>
+                <p>
+                    <b>Vacancy: </b> {{jobOffer.vacancy}}
+                </p>
+            </mat-card-content>
+
+        </mat-card>
+
+
+
+
+    </div>
+    <pagination-controls (pageChange)="p = $event" *ngIf="jobOffers.length != 0"></pagination-controls>
+</div>
+
+
+
+<app-footer></app-footer>

@@ -1,0 +1,29 @@
+<mat-dialog-content>
+    <div class="container">
+        <h1 *ngIf="notificationData == ''">Notification is empty</h1>
+       
+
+       
+        <div class="notification" *ngFor="let notif of notificationData" [ngClass]="{'unread' : notif.status == 'unread'}" [matMenuTriggerFor]="menu" >
+            <ng-container *ngIf="notif.companyLogo">
+                <img src="{{notif.companyLogo ? notif.companyLogo: './assets/images/defaultimage.jpg'}}" alt="">
+                <div class="details">
+                    <p><b>{{notif.message}}</b></p>
+                    <p>{{notif.date}}</p>
+                </div>
+            </ng-container>
+         
+
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="viewNotif(notif)">View</button>
+                <button mat-menu-item (click)="deleteNotif(notif)">Delete</button>
+               
+            </mat-menu>
+          
+        </div>
+      
+        
+   
+    </div>
+
+</mat-dialog-content>

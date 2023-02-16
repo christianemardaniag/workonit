@@ -1,0 +1,255 @@
+<app-navbar (menuClicked)="childEvent($event)"></app-navbar>
+<div class="container" id="desktop-content">
+    <div class="active-evaluators" [hidden]="tableStatus">
+        <div class="actions">
+            <mat-form-field appearance="outline">
+                <mat-label>Search</mat-label>
+                <mat-icon matPrefix>search</mat-icon>
+                <input matInput (keyup)="applyFilter($event)" #input>
+            </mat-form-field>
+            <div class="buttons">
+                <button mat-raised-button ngxPrint printSectionId="applicantTable" [useExistingCss]="true">Generate Summary</button>
+                <button mat-raised-button (click)="openAnnouncement()">Create Announcement</button>
+
+            </div>
+
+        </div>
+            
+                 
+            <div class="mat-elevation-z8" id="applicantTable">
+                <img [src]="recruiter.companyLogo ? recruiter.companyLogo: './assets/images/defaultimage.jpg'" alt="">
+            <table mat-table [dataSource]="dataSource" matSort>
+
+
+                <ng-container matColumnDef="jobPosition">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Job Position</th>
+                    <td mat-cell *matCellDef="let row" (click)="viewJobApplication(row)"> {{row.jobPosition}} </td>
+                </ng-container>
+                <ng-container matColumnDef="studentName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Student Name</th>
+                    <td mat-cell *matCellDef="let row" (click)="viewJobApplication(row)"> {{row.studentName}} </td>
+                </ng-container>
+                
+                <ng-container matColumnDef="email">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Email</th>
+                    <td mat-cell *matCellDef="let row" (click)="viewJobApplication(row)"> {{row.email}} </td>
+                </ng-container>
+                <ng-container matColumnDef="contactNo">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Contact #</th>
+                    <td mat-cell *matCellDef="let row" (click)="viewJobApplication(row)"> {{row.contactNo}} </td>
+                </ng-container>
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header hidden>ID</th>
+                    <td mat-cell *matCellDef="let row" hidden> {{row.id}} </td>
+                </ng-container>
+                <ng-container matColumnDef="date">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header > Date Applied</th>
+                    <td mat-cell *matCellDef="let row" (click)="viewJobApplication(row)"> {{row.date}} </td>
+                </ng-container>
+                <ng-container matColumnDef="jobOfferId">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header hidden> Job Offer Id</th>
+                    <td mat-cell *matCellDef="let row" hidden> {{row.jobPosition}} </td>
+                </ng-container>
+                <ng-container matColumnDef="studentId">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header hidden> RecruiterId</th>
+                    <td mat-cell *matCellDef="let row" hidden> {{row.studentId}} </td>
+                </ng-container>
+                
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                    <td mat-cell *matCellDef="let row" (click)="viewJobApplication(row)"> <span style="color:#cfc107" *ngIf="row.status == 'Pending'">{{row.status}} </span>
+                        <span style="color:#0421de" *ngIf="row.status == 'Processing'">{{row.status}} </span>
+                        <span style="color:#04e42a" *ngIf="row.status == 'Hired'">{{row.status}}  </span>
+                        <span style="color:#9d04e4" *ngIf="row.status == 'Confirmation'">{{row.status}} </span> </td>
+                </ng-container>
+                
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                </tr>
+            </table>
+
+            <mat-paginator #activeTable="matPaginator" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+        </div>
+
+    </div>
+
+    
+</div>
+
+<div class="side-nav">
+
+    <mat-sidenav-container>
+        <mat-sidenav [opened]="sideNavOpened" (closed)="sideNavClose()">
+            <div class="navlinks" *ngIf="checkAuth == true && user == 'student'">
+
+                <a routerLink="/StudentHome">Home</a>
+    
+    
+                <a routerLink="/StudentApplication">My Application</a>
+    
+    
+                <a routerLink="/Profile">Profile</a>
+    
+    
+                <a [matMenuTriggerFor]="menu">About Us</a>
+    
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="goToAboutWork()">About Work On It</button>
+                    <button mat-menu-item (click)="goToAboutCICT()">About CICT</button>
+                    <button mat-menu-item (click)="goToAboutDevelopers()">About the Developers</button>
+                </mat-menu>
+                <div class="nav-buttons">
+                    <button mat-button (click)="openNotif()">
+                        <mat-icon [matBadge]="notifCounter" matBadgeOverlap="false">notifications</mat-icon>
+                      </button>
+                      <button mat-button (click)="openDialog()">
+                        <mat-icon>logout</mat-icon>
+                      </button>
+                </div>
+            
+            </div>
+    
+            <div class="navlinks" *ngIf="checkAuth == true && user == 'admin'">
+    
+                <a routerLink="/AdminDashboard">Dashboard</a>
+    
+    
+                <a routerLink="/AdminStudent">Student</a>
+    
+    
+                <a routerLink="/AdminRecruiter">Recruiter</a>
+    
+    
+                <a [matMenuTriggerFor]="menu">System Content</a>
+    
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="goToAdminAboutWork()">About Work On It</button>
+                    <button mat-menu-item (click)="goToAdminAboutCICT()">About CICT</button>
+                    <button mat-menu-item (click)="goToAdminAboutDevelopers()">About the Developers</button>
+                </mat-menu>
+    
+                <button mat-button (click)="openDialog()">
+                <mat-icon>logout</mat-icon>
+              </button>
+            </div>
+    
+            <div class="navlinks" *ngIf="checkAuth == true && user == 'recruiter'">
+    
+                <a routerLink="/RecruiterDashboard">Dashboard</a>
+    
+    
+                <a routerLink="/RecruiterApplicants">Applicants</a>
+    
+    
+                <a routerLink="/RecruiterJobOffer">Job Offer</a>
+    
+                <a routerLink="/RecruiterProfile">Profile</a>
+    
+    
+    
+    
+                <div class="nav-buttons">
+                    <button mat-button (click)="openNotif()">
+                        <mat-icon [matBadge]="notifCounter" matBadgeOverlap="false">notifications</mat-icon>
+                      </button>
+                      <button mat-button (click)="openDialog()">
+                        <mat-icon>logout</mat-icon>
+                      </button>
+                </div>
+            </div>
+        </mat-sidenav>
+
+        <mat-sidenav-content>
+            <div class="container" id="sideNav-content">
+                <div class="active-evaluators" [hidden]="tableStatus">
+                    <div class="actions">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Search</mat-label>
+                            <input matInput (keyup)="applyFilter2($event)" #input>
+                            <mat-icon matPrefix>search</mat-icon>
+                        </mat-form-field>
+                        <div class="buttons">
+                            <button mat-raised-button ngxPrint printSectionId="applicantTable" [useExistingCss]="true">Generate Summary</button>
+                            <button mat-raised-button (click)="openAnnouncement()">Create Announcement</button>
+            
+                        </div>
+
+            
+                    </div>
+            
+                 
+                    <div class="mat-elevation-z8" id="applicantTable">
+                        <table mat-table [dataSource]="dataSource2" matSort #sort2="matSort">
+            
+            
+                            <ng-container matColumnDef="jobPosition">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Job Position</th>
+                                <td mat-cell *matCellDef="let row" (click)="viewJobApplication(row)"> {{row.jobPosition}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="studentName">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Student Name</th>
+                                <td mat-cell *matCellDef="let row" (click)="viewJobApplication(row)"> {{row.studentName}} </td>
+                            </ng-container>
+                            
+                            <ng-container matColumnDef="email">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Email</th>
+                                <td mat-cell *matCellDef="let row" (click)="viewJobApplication(row)"> {{row.email}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="contactNo">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Contact #</th>
+                                <td mat-cell *matCellDef="let row" (click)="viewJobApplication(row)"> {{row.contactNo}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="id">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header hidden>ID</th>
+                                <td mat-cell *matCellDef="let row" hidden> {{row.id}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="date">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header > Date Applied</th>
+                                <td mat-cell *matCellDef="let row" (click)="viewJobApplication(row)"> {{row.date}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="jobOfferId">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header hidden> Job Offer Id</th>
+                                <td mat-cell *matCellDef="let row" hidden> {{row.jobPosition}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="studentId">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header hidden> RecruiterId</th>
+                                <td mat-cell *matCellDef="let row" hidden> {{row.studentId}} </td>
+                            </ng-container>
+                            
+                            <ng-container matColumnDef="status">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                                <td mat-cell *matCellDef="let row" (click)="viewJobApplication(row)"> 
+                                    <span style="color:#cfc107" *ngIf="row.status == 'Pending'">{{row.status}} </span>
+                                    <span style="color:#0421de" *ngIf="row.status == 'Processing'">{{row.status}} </span>
+                                    <span style="color:#04e42a" *ngIf="row.status == 'Hired'">{{row.status}}  </span>
+                                    <span style="color:#9d04e4" *ngIf="row.status == 'Confirmation'">{{row.status}} </span> </td>
+                            </ng-container>
+                            
+            
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            
+            
+                            <tr class="mat-row" *matNoDataRow>
+                                <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                            </tr>
+                        </table>
+            
+                   
+                    </div>
+                    <mat-paginator #activeTable2="matPaginator" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+            
+                </div>
+            
+                
+            </div>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>
+
+<app-footer></app-footer>

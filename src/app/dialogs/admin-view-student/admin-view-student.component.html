@@ -1,0 +1,164 @@
+
+<mat-dialog-content>
+
+
+<div class="container">
+    <div class="student-information">
+
+
+    <div class="left-side">
+        <div class="profile-picture">
+            <img [src]="student.profilePicture" alt="Profile Picture">
+        </div>
+        <div class="student-name">
+            <h2>{{student.name| titlecase}}</h2>
+        </div>
+    </div>
+    <div class="right-side">
+        <div class="personal-information">
+            <h3>PERSONAL INFORMATION</h3>
+            <div class="merge">
+                <i class="material-icons">email</i>
+                <h2>Email: {{student.email}}</h2>
+            </div>
+            <div class="merge">
+                <i class="material-icons">phone</i>
+
+                <h2>Contact Number: {{student.contactNo}} </h2>
+            </div>
+            <div class="merge">
+                <i class="material-icons">location_on</i>
+                <h2>Address: {{student.address |titlecase}}</h2>
+            </div>
+            <div class="merge">
+                <i class="material-icons" *ngIf="student.gender =='male'">male</i>
+                <i class="material-icons" *ngIf="student.gender =='female'">female</i>
+                <h2>Gender: {{student.gender | titlecase}}</h2>
+            </div>
+            <div class="merge">
+                <i class="material-icons">numbers</i>
+                <h2>Student Number: {{student.idno}} </h2>
+            </div>
+            <div class="merge">
+                <i class="material-icons">school</i>
+
+                <h2>Section: {{student.section}} </h2>
+            </div>
+        </div>
+        <div class="skills-container">
+            <h3>SKILLS</h3>
+            <ul>
+                <li *ngFor="let skill of student.skills">{{skill | titlecase}}</li>
+
+            </ul>
+        </div>
+        <div class="rating-container">
+            <h3>RATING</h3>
+            <div class="rating" *ngIf="student.positive != 0 || student.negative != 0">
+                <div class="sentiment-chart">
+                            
+                    <canvas id="myChart-sideNav2"></canvas>
+        
+            </div>
+            <div class="rating-label" *ngIf="student.positive != 0 || student.negative != 0">
+                    <ngx-star-rating [(ngModel)] = "rating" [id]="'rating'" name="rating" [disabled]="true"  ></ngx-star-rating>
+                    <h4>{{ratingLabel | number : '1.2-2'}}</h4>
+            </div>
+          
+       
+
+                
+            
+            </div>
+            <h4 *ngIf="student.positive == 0  && student.negative == 0">No data to show</h4>
+        
+        </div>
+        <div class="resume-container">
+            <h3>RESUME</h3>
+            <div class="merge">
+                <i class="material-icons">link</i>
+
+                <a [href]="student.resume" target="_blank" *ngIf="student.resume">Link of the resume</a>
+                <p *ngIf="!student.resume">No resume uploaded</p>
+            </div>
+        </div>
+     
+    </div>
+</div>
+    <div class="student-table">
+        <div class="actions">
+            <mat-form-field appearance="outline">
+                <mat-label>Search</mat-label>
+                <mat-icon matPrefix>search</mat-icon>
+                
+                <input matInput (keyup)="applyFilter($event)" #input>
+            </mat-form-field>
+
+        </div>
+
+     
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource" matSort>
+
+
+                <ng-container matColumnDef="jobPosition">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Job Position</th>
+                    <td mat-cell *matCellDef="let row" > {{row.jobPosition}} </td>
+                </ng-container>
+                <ng-container matColumnDef="companyName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Company Name</th>
+                    <td mat-cell *matCellDef="let row" > {{row.companyName}} </td>
+                </ng-container>
+                
+                <ng-container matColumnDef="recruiterName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Recruiter Name</th>
+                    <td mat-cell *matCellDef="let row" > {{row.recruiterName}} </td>
+                </ng-container>
+                <ng-container matColumnDef="email">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Email</th>
+                    <td mat-cell *matCellDef="let row" > {{row.email}} </td>
+                </ng-container>
+                <ng-container matColumnDef="contactNo">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Contact #</th>
+                    <td mat-cell *matCellDef="let row" > {{row.contactNo}} </td>
+                </ng-container>
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header hidden>ID</th>
+                    <td mat-cell *matCellDef="let row" hidden> {{row.id}} </td>
+                </ng-container>
+                <ng-container matColumnDef="date">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header > Date Applied</th>
+                    <td mat-cell *matCellDef="let row" > {{row.date}} </td>
+                </ng-container>
+                <ng-container matColumnDef="jobOfferId">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header hidden> Job Offer Id</th>
+                    <td mat-cell *matCellDef="let row" hidden> {{row.jobPosition}} </td>
+                </ng-container>
+                <ng-container matColumnDef="recruiterId">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header hidden> RecruiterId</th>
+                    <td mat-cell *matCellDef="let row" hidden> {{row.recruiterId}} </td>
+                </ng-container>
+                
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                    <td mat-cell *matCellDef="let row" > <span style="color:#cfc107" *ngIf="row.status == 'Pending'">{{row.status}} </span>
+                        <span style="color:#0421de" *ngIf="row.status == 'Processing'">{{row.status}} </span>
+                        <span style="color:#04e42a" *ngIf="row.status == 'Hired'">{{row.status}}  </span> </td>
+                </ng-container>
+                
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                </tr>
+            </table>
+
+        </div>
+        <mat-paginator #activeTable="matPaginator" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+
+    </div>
+</div>
+</mat-dialog-content>

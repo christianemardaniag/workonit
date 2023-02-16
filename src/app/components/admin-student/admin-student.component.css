@@ -1,0 +1,377 @@
+mat-form-field.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+    margin: 0 5px;
+}
+
+* {
+    font-family: 'Arimo', sans-serif;
+    font-family: 'Montserrat', sans-serif;
+}
+
+mat-icon {
+    font-family: 'Material Icons' !important;
+}
+
+mat-label {
+    color: #444;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: rgba(255, 170, 40,1);
+    border-width: 3px !important;
+}
+
+::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+    color: rgba(255, 170, 40,1);
+}
+
+::ng-deep .mat-sort-header-arrow {
+    color: #fff;
+}
+.mat-row:hover {
+    background-color: rgb(248, 191, 106);
+}
+.mat-row{
+    cursor: pointer;
+}
+.mat-input-element {
+    color: #444;
+}
+
+.mat-input-element::placeholder {
+    color: #444;
+}
+
+mat-button-toggle-group {
+    border: 1px solid #444;
+    font-weight: bolder;
+}
+
+.mat-header-cell {
+    background: rgba(255, 170, 40,1);
+    color: white;
+}
+
+.addevaluator-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.addevaluator-container h2 {
+    color: #444;
+}
+
+.addevaluator-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.addevaluator-container a {
+    margin-top: 5px;
+}
+
+.form-merge {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form-gender {
+    margin-left: 5px;
+}
+
+.side-merge {
+    display: flex;
+    width: 80%;
+}
+
+.side-merge span {
+    font-size: 50px;
+    font-weight: bolder;
+}
+
+.table-buttons button {
+    float: right;
+    font-size: 15px;
+    background-color: rgba(255, 170, 40,1);
+    color: white;
+    padding: 5px;
+    cursor: pointer;
+    border: 1px solid rgba(255, 170, 40,1);
+    transition: .5s ease;
+    width: 140px;
+    margin-bottom: 5px;
+    border-radius: 25px;
+}
+
+.table-buttons button:hover {
+    color: #444;
+    background-color: white;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    height: max-content;
+    flex-direction: column;
+    align-items: center;
+    margin: 30px auto;
+    animation: fadeIn 2s;
+    padding-bottom: 50px;
+}
+
+.mat-elevation-z8 {
+    width: 100%;
+}
+
+table {
+    width: 100%;
+}
+
+th {
+    font-size: 18px;
+    font-weight: bolder;
+    color: black;
+    text-align: center;
+}
+
+.actions {
+    display: flex;
+    
+    width: 100%;
+    flex-direction: column;
+}
+
+.actions button {
+    float: right;
+    font-size: .8rem;
+    width: 160px;
+    background-color: #444;
+    color: white;
+    padding: 5px;
+    cursor: pointer;
+    border: 1px solid #444;
+    transition: .5s ease;
+    margin-bottom: 5px;
+    border-radius: 25px;
+    margin-right: 5px;
+    margin-left: auto;
+}
+
+
+.active-students {
+    padding: 20px 20px 20px 0px;
+    width: 90%;
+    height: 100%;
+}
+
+.deactive-evaluators {
+    padding: 20px 20px 20px 0px;
+    width: 90%;
+    height: 100%;
+}
+
+.table-buttons {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+.text-box{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+#sideNav-content {
+    display: none;
+}
+
+.navlinks {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: max-content;
+  
+}
+
+.navlinks a {
+    text-decoration: none;
+    color: #444;
+    font-size: 1.5rem;
+    margin: 20px 5px;
+  
+}
+
+.navlinks button {
+    width: 100%;
+    text-align: left;
+    height: 80px;
+}
+
+
+mat-sidenav {
+    width: 50%;
+}
+
+@media print {
+    .mat-header-cell {
+        background: rgba(255, 170, 40,1);
+        color: white;
+        -webkit-print-color-adjust: exact;
+    }
+     img{
+        height: 100px;
+        width: 200px;
+        object-fit: contain;
+        
+        
+    }
+    .mat-elevation-z8{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+}
+@media only screen and (max-width: 1200px) {
+    .container {
+        width: 100%;
+        overflow-x: hidden;
+        display: flex;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-bottom: 430px;
+    }
+    .active-students {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+    }
+    .deactive-evaluators {
+        width: 100%;
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+    }
+    .actions {
+        width: 90%;
+    }
+    .table-buttons {
+        width: 90%;
+    }
+    table {
+        width: 100%;
+    }
+    th,
+    td {
+        font-size: .9rem;
+    }
+    .navlinks mat-icon {
+        font-size: 1.5rem;
+    }
+    .mat-elevation-z8 {
+        width: 90%;
+        overflow-x: auto;
+    }
+    mat-paginator {
+        width: 90%;
+    }
+    mat-button-toggle-group {
+        font-size: 1rem;
+    }
+    .table-buttons button {
+        font-size: 1rem;
+        padding: 2px;
+        width: 30%;
+    }
+    #desktop-content {
+        display: none;
+    }
+    #sideNav-content {
+        display: flex;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .container {
+        width: 100%;
+        overflow-x: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .active-students {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+    }
+    .deactive-evaluators {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+    }
+    .actions {
+        width: 90%;
+    }
+    .table-buttons {
+        width: 90%;
+    }
+    table {
+        width: 100%;
+    }
+    th,
+    td {
+        font-size: 1rem;
+    }
+    .mat-elevation-z8 {
+        width: 90%;
+        overflow-x: auto;
+    }
+    mat-paginator {
+        width: 90%;
+    }
+    mat-button-toggle-group {
+        font-size: .7rem;
+    }
+    .table-buttons button {
+        font-size: .7rem;
+        padding: 2px;
+        width: 30%;
+    }
+    #desktop-content {
+        display: none;
+    }
+    #sideNav-content {
+        display: flex;
+    }
+}

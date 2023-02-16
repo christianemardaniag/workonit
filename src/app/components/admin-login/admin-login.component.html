@@ -1,0 +1,41 @@
+<app-navbar></app-navbar>
+<div class="container">
+
+    <div class="login-side">
+        <div class="login-side-text">
+            <h2>WORK ON IT.</h2>
+            <h3>Transform your career into a new opportuninty and find your job. faster than before. Just search, apply and your good to go</h3>
+        </div>
+
+    </div>
+
+    <div class="login-container">
+
+        <form #Registerform="ngForm" (ngSubmit)="Login(Registerform.value)">
+            <h2>Admin Login</h2>
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput ngModel type="email" name="email" placeholder="Enter Email" #email="ngModel" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
+                <mat-error *ngIf="email.invalid">Please use valid email</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <input matInput ngModel type="password" name="password" placeholder="Enter Passwod" #password="ngModel" required>
+            </mat-form-field>
+
+            <div class="links-container">
+
+                <a mat-button color="primary" (click)="goToForgotPassword()"> Forgot Password?</a>
+
+   
+            </div>
+            <button mat-raised-button type="submit" [disabled]="Registerform.invalid"> Log In</button>
+
+
+        </form>
+
+
+    </div>
+</div>
+
+<app-footer></app-footer>

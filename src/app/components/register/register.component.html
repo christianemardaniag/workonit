@@ -1,0 +1,165 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+    <div class="register-container">
+
+
+        <form #Registerform="ngForm" (ngSubmit)="registerUser(Registerform.value)">
+            <div class="form-merge">
+                <mat-form-field appearance="outline">
+                    <mat-label>First Name</mat-label>
+                    <input matInput ngModel type="text" name="first_name" placeholder="Enter First Name" #firstName="ngModel" required>
+
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Middle Name</mat-label>
+                    <input matInput ngModel type="text" name="middle_name" placeholder="Enter Middle Name" #middleName="ngModel">
+                </mat-form-field>
+            </div>
+            <div class="form-merge">
+                <mat-form-field appearance="outline">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput ngModel type="text" name="last_name" placeholder="Enter Last Name" #lastName="ngModel" required>
+                </mat-form-field>
+                <div class="form-gender">
+                    Gender:
+
+                    <input ngModel #male="ngModel" type="radio" name="gender" id="Male" value="male" required>
+                    <label for="Male">Male</label>
+                    <input ngModel #female="ngModel" type="radio" name="gender" id="Female" value="female" required>
+                    <label for="Female">Female</label>
+
+                </div>
+
+
+            </div>
+            <div class="form-merge section">
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Section</mat-label>
+                    <select matNativeControl required name="section" ngModel #section="ngModel">
+                        
+                      <option value="A">A</option>
+                      <option value="B">B</option>
+                      <option value="C">C</option>
+                      <option value="D">D</option>
+                      <option value="E">E</option>
+                      <option value="F">F</option>
+                      <option value="G">G</option>
+                      <option value="H">H</option>
+                      <option value="I">I</option>
+                      <option value="J">J</option>
+                      <option value="K">K</option>
+                      <option value="L">L</option>
+                      <option value="M">M</option>
+                      <option value="N">N</option>
+                      <option value="O">O</option>
+                      <option value="P">P</option>
+                      <option value="Q">Q</option>
+                      <option value="R">R</option>
+                      <option value="S">S</option>
+                      <option value="T">T</option>
+                      <option value="Y">U</option>
+                      <option value="V">V</option>
+                      <option value="W">W</option>
+                      <option value="X">X</option>
+                      <option value="Y">Y</option>
+                      <option value="Z">Z</option>
+                    </select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>ID No.</mat-label>
+                    <input matInput ngModel type="text" name="idNo" placeholder="Enter ID Number" #idNo="ngModel" required>
+
+                </mat-form-field>
+
+            </div>
+            <div class="form-solo">
+                <mat-form-field appearance="outline">
+                    <mat-label>Contact Number</mat-label>
+                    <span matPrefix>+63 &nbsp;</span>
+                    <input matInput ngModel type="text" name="contactNo" placeholder="Enter Contact Number" #contactNo="ngModel" required pattern="^9\d{9}$">
+                    <mat-error *ngIf="contactNo.invalid">Contact number must start with 9 followed by 9 digits. (Ex. 92105....)</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="form-solo">
+                <mat-form-field appearance="outline">
+                    <mat-label>Address</mat-label>
+                    <input matInput ngModel type="text" name="address" placeholder="Enter Address" #address="ngModel" required> <br>
+                </mat-form-field>
+            </div>
+            <div class="form-solo">
+
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput ngModel type="email" name="email" placeholder="Enter Email" #email="ngModel" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
+                    <mat-error *ngIf="email.invalid">Please enter a valid email</mat-error>
+                </mat-form-field>
+            </div>
+
+
+
+
+
+            <div class="form-solo">
+
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input matInput ngModel type="password" name="password" placeholder="Enter Passwod" #password="ngModel" required pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$">
+                    <mat-error *ngIf="password.errors?.['pattern']"> Password must be atleast 8 characters, contains uppercase, contains number</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="form-solo">
+
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Confirm Password</mat-label>
+                    <input matInput ngModel type="password" name="repassword" placeholder="Confirm Passwod" #repassword="ngModel" required [pattern]="password.value">
+                    <mat-error *ngIf="repassword.value != password.value && repassword.touched"> Password doesn't matched</mat-error>
+
+                </mat-form-field>
+            </div>
+
+            <div class="skills-container">
+                <mat-form-field appearance="outline">
+                    <mat-label>Skills</mat-label>
+                    <input matInput [(ngModel)]="inputedSkill" type="text" name="skills" placeholder="Enter Skill" #skill="ngModel" (ngModelChange)="getInputSkill($event)">
+                </mat-form-field>
+                <button mat-mini-fab color="warn" aria-label="Example icon button with a home icon" (click)="addSkill()" type="button">
+                    <mat-icon >add</mat-icon>
+                  </button>
+
+            </div>
+            <div class="inputed-skills">
+
+
+
+                <div class="skill" *ngFor="let skill of skills;let i = index">
+                    <div class="skill-name">
+                        {{skill}}
+                    </div>
+                    <div class="button" (click)="removeSkill(i)">
+                        <mat-icon>close</mat-icon>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <div class="privacy-policy">
+                <input type="checkbox" id="privacyCheckBox" required (change)="checkBox($event)"> I've read and accept the <span (click)="goToPrivacy()"> Privacy Policy</span>.
+            </div>
+            <div class="register-button">
+                <button mat-raised-button type="submit" [disabled]="skills.length == 0 || Registerform.invalid || toggleBool "> Register</button>
+            </div>
+
+            <a mat-button color="primary" routerLink="/"> Already have an account?</a>
+        </form>
+    </div>
+</div>
+
+<app-footer></app-footer>

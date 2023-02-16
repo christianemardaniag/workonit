@@ -1,0 +1,271 @@
+mat-form-field.mat-form-field {
+    font-size: 14px;
+    width: 90%;
+    margin: 0 10px;
+    color: white;
+}
+
+
+mat-form-field.mat-form-field:nth-child(2) {
+   
+    width: 50%;
+  
+}
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: rgba(255, 170, 40,1);
+    border-width: 3px !important;
+}
+
+::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+    color: rgba(255, 170, 40,1);
+}
+
+mat-label {
+    color: white;
+}
+.filter-bar {
+    color: #444;
+}
+
+.example-card {
+    max-width: 300px;
+    margin: 20px 0;
+}
+
+mat-card {
+    cursor: pointer;
+    height: 350px;
+    width: 350px;
+    background-color: #444;
+    color: white;
+    border-radius: 25px;
+    box-shadow: 5px 5px 35px rgb(71, 71, 71) !important;
+}
+
+::ng-deep .mat-card {
+    padding: 0 !important;
+}
+
+ ::ng-deep .mat-card-content {
+    padding: 10px !important;
+}
+
+mat-card-header {
+    background-color:rgba(255, 170, 40,1);
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+}
+
+mat-card-header img {
+    margin-right: 20px;
+    height: 100px;
+    object-fit: contain;
+}
+
+.container {
+    width: 100%;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 30px;
+ 
+    background-image: url("/assets/images/login background.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+.joboffer-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 90%;
+    flex-wrap: wrap;
+    margin-bottom: 50px;
+    
+}
+
+a {
+    color: #609bfb;
+    cursor: pointer;
+}
+.actions-container {
+    display: flex;
+    width: 90%;
+    justify-content: space-between;
+}
+.FAQ-container {
+    width: 100%;
+    background-color: #444;
+    color: white;
+    height: max-content;
+    padding: 30px 0;
+}
+.questions{
+    margin: 0 20px;
+}
+.FAQ-title {
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+.FAQ-title h2 {
+    font-size: 1.5rem;
+    font-weight: bolder;
+    margin-left: 30px;
+}
+.FAQ-title img {
+    height: 50px;
+    width: 50px;
+    object-fit: contain;
+    margin-bottom: 20px;
+    margin-left: 20px;
+}    
+mat-expansion-panel{
+    border: 2px solid white;
+    background-color: #444;
+    color: white;
+}
+::ng-deep .mat-expansion-indicator:after {
+    color: white;
+  }
+mat-panel-title {
+    color: white;
+}
+
+.developer-container {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    margin: 30px 0;
+    height: 100%;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.developer-container h2 {
+    font-size: 3rem;
+    color: white;
+    margin-right: auto;
+    margin-left: 30px;
+    font-weight: bolder;
+   
+}
+
+.developers {
+    margin: 20px 0;
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.developer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 30px 10px;
+    z-index: 1;
+    width: 30%;
+    cursor: pointer;
+    box-shadow: 10px 10px 35px black;
+    padding: 15px 10px;
+}
+
+.developer img {
+    width: 200px;
+    height: 200px;
+    border: 4px solid rgba(255, 170, 40,1);
+    border-radius: 100%;
+    object-fit: cover;
+}
+
+.developer p {
+    text-align: center;
+    font-size: 21px;
+    font-weight: bolder;
+    color: white;
+    margin-top: 10px;
+}
+
+#sideNav-content {
+    display: none;
+}
+
+.navlinks {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: max-content;
+  
+}
+
+.navlinks a {
+    text-decoration: none;
+    color: #444;
+    font-size: 1.5rem;
+    margin: 20px 5px;
+  
+}
+
+.navlinks button {
+    width: 100%;
+    text-align: left;
+    height: 80px;
+}
+
+
+mat-sidenav {
+    width: 50%;
+}
+
+@media only screen and (max-width: 992px) {
+    .container {
+        overflow-x: hidden;
+    }
+    .actions-container {
+        flex-direction: column;
+    }
+    mat-form-field.mat-form-field:nth-child(2) {
+   
+        width: 100%;
+      
+    }
+    mat-form-field.mat-form-field {
+        width: 100%;
+    }
+   
+    #desktop-content {
+        display: none;
+    }
+    #sideNav-content {
+        display: flex;
+    }
+}
+
+@media only screen and (max-width: 790px) {
+    .developer img {
+        width: 100px;
+        height: 100px;
+       
+    }
+    .developer-container h2 {
+        font-size: 2rem;
+     
+       
+    }
+    .developer-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    #desktop-content {
+        display: none;
+    }
+    #sideNav-content {
+        display: flex;
+    }
+}

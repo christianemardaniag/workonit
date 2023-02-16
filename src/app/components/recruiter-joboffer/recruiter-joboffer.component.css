@@ -1,0 +1,164 @@
+mat-form-field.mat-form-field {
+    font-size: 14px;
+    width: 90%;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: rgba(255, 170, 40,1);
+    border-width: 3px !important;
+}
+
+::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+    color: rgba(255, 170, 40,1);
+}
+
+mat-label {
+    color: #444;
+}
+
+.example-card {
+    max-width: 300px;
+    margin: 20px 0;
+}
+
+mat-card {
+    cursor: pointer;
+    height: 350px;
+    width: 350px;
+    background-color: #444;
+    color: white;
+    border-radius: 25px;
+    box-shadow: 10px 10px 8px #888888;
+}
+
+::ng-deep .mat-card {
+    padding: 0 !important;
+}
+
+ ::ng-deep .mat-card-content {
+    padding: 10px !important;
+}
+
+mat-card-header {
+    background-color: rgba(255, 170, 40,1);
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+}
+
+mat-card-header img {
+    margin-right: 20px;
+    height: 100px;
+    object-fit: contain;
+}
+
+.container {
+    width: 100%;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 30px;
+    margin-bottom: 350px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+}
+
+.buttons button:disabled {
+    background-color: #86a1353d;
+    color: white;
+    border-radius: 40px;
+    transition: .5 ease;
+    font-size: 1rem;
+    height: 50px;
+    margin: 20px 10px;
+}
+
+.buttons button:enabled {
+    background-color: rgba(255, 170, 40,1);
+    color: white;
+    border-radius: 40px;
+    border: 2px solid rgba(255, 170, 40,1);
+    transition: .5 ease;
+    font-size: 1rem;
+    height: 50px;
+    margin: 20px 10px;
+}
+
+.buttons button:enabled:hover {
+    background-color: white;
+    color: #444;
+}
+
+.joboffer-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 90%;
+    flex-wrap: wrap;
+    margin-bottom: 50px;
+}
+
+a {
+    color: #609bfb;
+    cursor: pointer;
+}
+
+#sideNav-content {
+    display: none;
+}
+
+.navlinks {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: max-content;
+  
+}
+
+.navlinks a {
+    text-decoration: none;
+    color: #444;
+    font-size: 1.5rem;
+    margin: 20px 5px;
+  
+}
+
+.navlinks button {
+    width: 100%;
+    text-align: left;
+    height: 80px;
+}
+
+
+mat-sidenav {
+    width: 50%;
+}
+
+@media only screen and (max-width: 992px) {
+
+   
+    #desktop-content {
+        display: none;
+    }
+    #sideNav-content {
+        display: flex;
+    }
+
+}
+
+@media only screen and (max-width: 790px) {
+
+    #desktop-content {
+        display: none;
+    }
+    #sideNav-content {
+        display: flex;
+    }
+    .buttons {
+        flex-direction: column;
+    }
+}

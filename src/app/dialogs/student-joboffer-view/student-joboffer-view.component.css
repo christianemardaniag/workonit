@@ -1,0 +1,162 @@
+.container {
+    width: 100%;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-x: hidden;
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    margin: 0 40px;
+}
+
+.header img {
+    height: 200px;
+    width: 200px;
+    object-fit: contain;
+}
+
+.body {
+    width: 100%;
+    height: max-content;
+    background-color: #444;
+    color: white;
+    padding: 30px;
+}
+
+.buttons {
+    width: 20%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0 auto;
+}
+
+.buttons button {
+    background-color: rgba(255, 170, 40,1);
+    color: white;
+    border-radius: 40px;
+    border: 2px solid rgba(255, 170, 40,1);
+    transition: .5 ease;
+    font-size: 1rem;
+    height: 50px;
+    margin: 20px auto;
+}
+
+.buttons button:hover {
+    background-color: white;
+    color: #444;
+}
+
+canvas {
+    width: 60%;
+    height: 60%;
+}
+.pie-chart {
+    width: 30%;
+    height: 300px;
+    padding: 30px;
+
+}
+
+.rating {
+    display: flex;
+    
+    justify-content: center;
+    align-items: center;
+}
+.rating h3 {
+    font-weight: bolder;
+    font-size: 1.2rem;
+    margin-top: 20px;
+}
+
+.header {
+    width: 100%;
+    display: flex;
+  
+   justify-content: space-evenly;
+    align-items: center;
+}
+.header-companyLogo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@media only screen and (max-width: 992px) {
+    .rating {
+        width: 100%;
+    }
+    .header-companyLogo{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+    
+}
+
+@media only screen and (max-width: 790px) {
+ .container {
+    align-items: center;
+ }
+.header {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+canvas {
+    width: 8%;
+    height: 80%;
+}
+.pie-chart {
+    width: 50%;
+    height: 300px;
+    padding: 30px;
+
+}
+.rating {
+    width: 100%;
+}
+.rating h3 {
+    font-weight: bolder;
+    font-size: .8rem;
+ 
+}
+
+.header img {
+    height: 150px;
+    width: 150px;
+    object-fit: contain;
+}
+.body {
+    padding: 20px;
+   
+}
+.body p {
+    font-size: .7rem;
+    width: 100%;
+   margin: 0 5px;
+
+}
+li {
+    font-size: .7rem;
+}
+.buttons {
+    width: 40%;
+
+}
+.header-companyLogo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+}

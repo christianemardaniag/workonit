@@ -1,0 +1,120 @@
+<app-navbar (menuClicked)="childEvent($event)"></app-navbar>
+<div class="side-nav">
+
+    <mat-sidenav-container>
+        <mat-sidenav [opened]="sideNavOpened" (closed)="sideNavClose()">
+            <div class="navlinks" *ngIf="checkAuth == true && user == 'student'">
+
+                <a routerLink="/StudentHome">Home</a>
+    
+    
+                <a routerLink="/StudentApplication">My Application</a>
+    
+    
+                <a routerLink="/Profile">Profile</a>
+    
+    
+                <a [matMenuTriggerFor]="menu">About Us</a>
+    
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="goToAboutWork()">About Work On It</button>
+                    <button mat-menu-item (click)="goToAboutCICT()">About CICT</button>
+                    <button mat-menu-item (click)="goToAboutDevelopers()">About the Developers</button>
+                </mat-menu>
+                <div class="nav-buttons">
+                    <button mat-button (click)="openNotif()">
+                        <mat-icon [matBadge]="notifCounter" matBadgeOverlap="false">notifications</mat-icon>
+                      </button>
+                      <button mat-button (click)="openDialog()">
+                        <mat-icon>logout</mat-icon>
+                      </button>
+                </div>
+            
+            </div>
+    
+            <div class="navlinks" *ngIf="checkAuth == true && user == 'admin'">
+    
+                <a routerLink="/AdminDashboard">Dashboard</a>
+    
+    
+                <a routerLink="/AdminStudent">Student</a>
+    
+    
+                <a routerLink="/AdminRecruiter">Recruiter</a>
+    
+    
+                <a [matMenuTriggerFor]="menu">System Content</a>
+    
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="goToAdminAboutWork()">About Work On It</button>
+                    <button mat-menu-item (click)="goToAdminAboutCICT()">About CICT</button>
+                    <button mat-menu-item (click)="goToAdminAboutDevelopers()">About the Developers</button>
+                </mat-menu>
+    
+                <button mat-button (click)="openDialog()">
+                <mat-icon>logout</mat-icon>
+              </button>
+            </div>
+    
+            <div class="navlinks" *ngIf="checkAuth == true && user == 'recruiter'">
+    
+                <a routerLink="/RecruiterDashboard">Dashboard</a>
+    
+    
+                <a routerLink="/RecruiterApplicants">Applicants</a>
+    
+    
+                <a routerLink="/RecruiterJobOffer">Job Offer</a>
+    
+                <a routerLink="/RecruiterProfile">Profile</a>
+    
+    
+    
+    
+                <div class="nav-buttons">
+                    <button mat-button (click)="openNotif()">
+                        <mat-icon [matBadge]="notifCounter" matBadgeOverlap="false">notifications</mat-icon>
+                      </button>
+                      <button mat-button (click)="openDialog()">
+                        <mat-icon>logout</mat-icon>
+                      </button>
+                </div>
+            </div>
+        </mat-sidenav>
+
+        <mat-sidenav-content>
+            <div class="container" id="sideNav-content">
+                <div class="top">
+                    <h2>ABOUT THE DEVELOPERS</h2>
+                    <button mat-raised-button (click)="openAddDeveloperDialog()">Add Developer</button>
+                </div>
+            
+                <div class="developers">
+                    <div class="developer" *ngFor="let developer of developers" (click)="goToSpecificDev(developer)">
+                        <img [src]="developer.photoURL ? developer.photoURL: '/assets/images/placeholder.png'">
+                        <p>{{developer.developerName | titlecase}} </p>
+            
+                    </div>
+            
+                </div>
+            </div>
+             
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>
+<div class="container" id="desktop-content">
+    <div class="top">
+        <h2>ABOUT THE DEVELOPERS</h2>
+        <button mat-raised-button (click)="openAddDeveloperDialog()">Add Developer</button>
+    </div>
+
+    <div class="developers">
+        <div class="developer" *ngFor="let developer of developers" (click)="goToSpecificDev(developer)">
+            <img [src]="developer.photoURL ? developer.photoURL: '/assets/images/placeholder.png'">
+            <p>{{developer.developerName | titlecase}} </p>
+
+        </div>
+
+    </div>
+</div>
+<app-footer></app-footer>

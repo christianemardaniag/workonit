@@ -1,0 +1,133 @@
+<app-navbar (menuClicked)="childEvent($event)"></app-navbar>
+<div class="side-nav">
+
+    <mat-sidenav-container>
+        <mat-sidenav [opened]="sideNavOpened" (closed)="sideNavClose()">
+            <div class="navlinks" *ngIf="checkAuth == true && user == 'student'">
+
+                <a routerLink="/StudentHome">Home</a>
+    
+    
+                <a routerLink="/StudentApplication">My Application</a>
+    
+    
+                <a routerLink="/Profile">Profile</a>
+    
+    
+                <a [matMenuTriggerFor]="menu">About Us</a>
+    
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="goToAboutWork()">About Work On It</button>
+                    <button mat-menu-item (click)="goToAboutCICT()">About CICT</button>
+                    <button mat-menu-item (click)="goToAboutDevelopers()">About the Developers</button>
+                </mat-menu>
+                <div class="nav-buttons">
+                    <button mat-button (click)="openNotif()">
+                        <mat-icon [matBadge]="notifCounter" matBadgeOverlap="false">notifications</mat-icon>
+                      </button>
+                      <button mat-button (click)="openDialog()">
+                        <mat-icon>logout</mat-icon>
+                      </button>
+                </div>
+            
+            </div>
+    
+            <div class="navlinks" *ngIf="checkAuth == true && user == 'admin'">
+    
+                <a routerLink="/AdminDashboard">Dashboard</a>
+    
+    
+                <a routerLink="/AdminStudent">Student</a>
+    
+    
+                <a routerLink="/AdminRecruiter">Recruiter</a>
+    
+    
+                <a [matMenuTriggerFor]="menu">System Content</a>
+    
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="goToAdminAboutWork()">About Work On It</button>
+                    <button mat-menu-item (click)="goToAdminAboutCICT()">About CICT</button>
+                    <button mat-menu-item (click)="goToAdminAboutDevelopers()">About the Developers</button>
+                </mat-menu>
+    
+                <button mat-button (click)="openDialog()">
+                <mat-icon>logout</mat-icon>
+              </button>
+            </div>
+    
+            <div class="navlinks" *ngIf="checkAuth == true && user == 'recruiter'">
+    
+                <a routerLink="/RecruiterDashboard">Dashboard</a>
+    
+    
+                <a routerLink="/RecruiterApplicants">Applicants</a>
+    
+    
+                <a routerLink="/RecruiterJobOffer">Job Offer</a>
+    
+                <a routerLink="/RecruiterProfile">Profile</a>
+    
+    
+    
+    
+                <div class="nav-buttons">
+                    <button mat-button (click)="openNotif()">
+                        <mat-icon [matBadge]="notifCounter" matBadgeOverlap="false">notifications</mat-icon>
+                      </button>
+                      <button mat-button (click)="openDialog()">
+                        <mat-icon>logout</mat-icon>
+                      </button>
+                </div>
+            </div>
+        </mat-sidenav>
+
+        <mat-sidenav-content>
+            <div class="container" id="sideNav-content">
+                <div class="left-side" [ngStyle]="{'background-image': 'url(' + systemContentObj.photoURL + ')'}">
+                    <button mat-mini-fab (click)="profilepic.click()">
+                        <mat-icon>edit</mat-icon>
+                       </button>
+                    <input type="file" name="profilepic" #profilepic hidden (change)="uploadImage($event)" accept="image/*">
+                </div>
+                <div class="right-side">
+            
+                    <h2>ABOUT WORK ON IT</h2>
+                    <form #editForm="ngForm" (ngSubmit)="editAboutWorkOnItText(editForm.value)">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Text</mat-label>
+                            <textarea matInput [(ngModel)]="systemContentObj.text" type="text" name="text" placeholder="Enter Text" #text="ngModel" required cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="30"> </textarea>
+                        </mat-form-field>
+            
+                        <button mat-raised-button type="submit" [disabled]="editForm.invalid">Save</button>
+            
+                    </form>
+                </div>
+            </div>
+             
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>
+<div class="container" id="desktop-content">
+    <div class="left-side" [ngStyle]="{'background-image': 'url(' + systemContentObj.photoURL + ')'}">
+        <button mat-mini-fab (click)="profilepic.click()">
+            <mat-icon>edit</mat-icon>
+           </button>
+        <input type="file" name="profilepic" #profilepic hidden (change)="uploadImage($event)" accept="image/*">
+    </div>
+    <div class="right-side">
+
+        <h2>ABOUT WORK ON IT</h2>
+        <form #editForm="ngForm" (ngSubmit)="editAboutWorkOnItText(editForm.value)">
+            <mat-form-field appearance="outline">
+                <mat-label>Text</mat-label>
+                <textarea matInput [(ngModel)]="systemContentObj.text" type="text" name="text" placeholder="Enter Text" #text="ngModel" required cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="30"> </textarea>
+            </mat-form-field>
+
+            <button mat-raised-button type="submit" [disabled]="editForm.invalid">Save</button>
+
+        </form>
+    </div>
+</div>
+
+<app-footer></app-footer>

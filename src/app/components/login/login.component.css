@@ -1,0 +1,155 @@
+mat-label {
+    color: white;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: rgba(255, 170, 40,1);
+    border-width: 3px !important;
+}
+
+::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+    color: rgba(255, 170, 40,1)
+}
+
+.mat-input-element {
+    color: white;
+}
+
+.mat-input-element::placeholder {
+    color: white;
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-container form {
+    display: flex;
+    flex-direction: column;
+    background-color: #414b3b86;
+    padding: 50px;
+}
+.login-container form h2 {
+    color: white;
+    text-align: center;
+}
+
+.links-container {
+    margin: 5px 0;
+}
+
+.links-container a {
+    color: white;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background-image: url("/assets/images/login background.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.login-side {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-side-text {
+    width: 70%;
+    text-align: center;
+    color: white;
+}
+
+.login-side-text h2 {
+    font-size: 3rem;
+    font-weight: bolder;
+}
+
+.login-side-text h3 {
+    font-size: 1.5rem;
+    margin-top: 20px;
+}
+
+button:disabled,
+button[disabled] {
+    background-color: rgba(255, 169, 40, 0.3) !important;
+    color: white !important;
+    border-radius: 40px;
+    transition: .5 ease;
+}
+
+button:enabled,
+button[enabled] {
+    background-color: rgba(255, 170, 40,1);
+    color: white;
+    border-radius: 40px;
+    border: 2px solid rgba(255, 170, 40,1);
+    transition: .5 ease;
+}
+
+button:hover {
+    background-color: white;
+    color: #444;
+}
+
+@media only screen and (max-width: 992px) {
+    .side-merge {
+        padding-left: 5px;
+    }
+    .login-side img {
+        width: 250px;
+        height: 250px;
+        transform: translateX(-20px);
+    }
+    .side-merge img {
+        width: 80px;
+        height: 80px;
+        margin-top: 80px;
+        transform: translateX(-50px);
+    }
+    .login-side h2 {
+        font-size: 2rem;
+        font-weight: bolder;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+    .login-side {
+        display: none;
+    }
+    .login-container {
+        width: 100%;
+        overflow-x: hidden;
+    }
+    .login-container form {
+        width: 80%;
+    }
+    .links-container {
+        display: flex;
+        width: 100%;
+        flex: 1;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+    .links-container a {
+        font-size: .6rem;
+    }
+}

@@ -1,0 +1,27 @@
+<mat-dialog-content>
+    <div class="addevaluator-container">
+        <h2>Add Developer</h2>
+        <form #addDeveloperForm="ngForm" (ngSubmit)="addDeveloper(addDeveloperForm.value)">
+
+            <mat-form-field appearance="outline">
+                <mat-label>Developer Name</mat-label>
+                <input matInput ngModel type="text" name="developerName" placeholder="Enter Developer Name" #developerName="ngModel" required>
+            </mat-form-field>
+
+            <label for="photoURL">Add Developer Picture*   <input type="file" name="developerName" id="photoURL" (change)="getFileInput($event)" required accept="image/*"></label>
+
+
+
+
+            <button mat-raised-button type="submit" [disabled]="addDeveloperForm.invalid"> Add</button>
+
+
+
+        </form>
+
+
+
+
+
+    </div>
+</mat-dialog-content>

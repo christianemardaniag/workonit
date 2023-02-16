@@ -1,0 +1,38 @@
+<mat-dialog-content>
+    <div class="addevaluator-container">
+        <h2>CREATE ANNOUNCEMENT</h2>
+        <form #Announcementform="ngForm" (ngSubmit)="createAnnouncement(Announcementform.value)">
+
+            <mat-form-field appearance="outline">
+                <mat-label>Send by Status</mat-label>
+                <select matNativeControl  name="status" [(ngModel)] = "statusInput">
+                    <option value="" disabled hidden></option>
+                  <option value="Pending">Pending</option>
+                  <option value="Processing">Processing</option>
+                  <option value="Hired">Hired</option>
+                  <option value="Confirmation">Confirmation</option>
+                  
+                </select>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Send by Job Position</mat-label>
+                <select matNativeControl  name="jobPosition" [(ngModel)] = "jobPositionInput" #jobPosition="ngModel">
+                    <option value="" disabled hidden></option>
+                    <option [value]="i.id" *ngFor="let i of jobOffers">{{i.jobPosition}}</option>
+                  
+                </select>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Announcement</mat-label>
+                <textarea matInput type="text" name="announcement" placeholder="Enter Announcement"  required="" cols="30" rows="10" ngModel #announcement="ngModel"></textarea>
+    
+            </mat-form-field>
+
+
+            <button mat-raised-button type="submit" [disabled]="jobPositionInput == '' && statusInput == '' || Announcementform.invalid ">Send</button>
+
+
+        </form>
+
+    </div>
+</mat-dialog-content>

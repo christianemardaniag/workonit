@@ -1,0 +1,63 @@
+<mat-dialog-content>
+    <div class="container">
+        <h2>Add Job Offer</h2>
+        <form #addJobForm="ngForm" (ngSubmit)="addJobOffer(addJobForm.value)">
+            <mat-form-field appearance="outline">
+                <mat-label>Job Position</mat-label>
+                <input matInput ngModel type="text" name="jobPosition" placeholder="Enter Job Position" #jobPosition="ngModel" required>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Job Description</mat-label>
+                <textarea matInput ngModel type="text" name="jobDescription" placeholder="Enter Job Description" #jobDescription="ngModel" required> </textarea>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Location</mat-label>
+                <input matInput ngModel type="text" name="location" placeholder="Enter Location" #location="ngModel" required>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Vacancy</mat-label>
+                <input matInput ngModel min="1" type="number" name="vacancy" placeholder="Enter Vacancy" #vacancy="ngModel" required>
+            </mat-form-field>
+
+            
+            <mat-form-field appearance="outline">
+                <mat-label>Hiring Date</mat-label>
+                <input matInput type="datetime-local"  required placeholder="start date" ngModel #dateDuration = "ngModel" name="dateDuration">
+              </mat-form-field>
+            <div class="skills-container">
+                <mat-form-field appearance="outline">
+                    <mat-label>Skills</mat-label>
+                    <input matInput [(ngModel)]="inputedSkill" type="text" name="skills" placeholder="Enter Skill" #skill="ngModel" (ngModelChange)="getInputSkill($event)">
+                </mat-form-field>
+                <button mat-mini-fab color="warn" aria-label="Example icon button with a home icon" (click)="addSkill()" type="button">
+                    <mat-icon >add</mat-icon>
+                  </button>
+
+            </div>
+            <div>
+                <label for="attachment">Upload image(Optional) </label>
+            <input type="file" accept="image/*" name="attachment" id="attachment" ngModel #attachment (change)="getAttachment($event)">
+
+            </div>
+            
+            <div class="inputed-skills">
+
+
+
+                <div class="skill" *ngFor="let skill of skills;let i = index">
+                    <div class="skill-name">
+                        {{skill}}
+                    </div>
+                    <div class="button" (click)="removeSkill(i)">
+                        <mat-icon>close</mat-icon>
+                    </div>
+
+                </div>
+
+
+            </div>
+            <button type="submit" mat-raised-button [disabled]="skills.length == 0 || addJobForm.invalid" class="submit-button">Add </button>
+        </form>
+    </div>
+
+</mat-dialog-content>

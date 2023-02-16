@@ -1,0 +1,157 @@
+.container {
+    height: max-content;
+    width: 100%;
+    display: flex;
+}
+
+.right-side {
+    width: 50%;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: right;
+    display: flex;
+    align-items: flex-end;
+    justify-content: left;
+}
+
+.right-side button {
+    background-color: rgba(255, 170, 40,1);
+    color: #444444;
+    height: 60px;
+    width: 60px;
+    border: 2px solid rgba(255, 170, 40,1);
+    transition: .3 ease;
+    margin: 30px;
+}
+
+.right-side mat-icon {
+    transform: scale(.8);
+    color: white;
+}
+
+.right-side button:hover {
+    background-color: white;
+}
+
+.right-side button:hover mat-icon {
+    color: #444;
+}
+
+.left-side {
+    width: 50%;
+    background-color: rgba(255, 170, 40,1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #444;
+    height: 100%;
+}
+
+.left-side h2 {
+    font-weight: bolder;
+    font-size: 3rem;
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
+.left-side p {
+    width: 80%;
+    font-size: 1.5rem;
+    text-align: justify;
+    line-height: 2rem;
+}
+
+.left-side button {
+    background-color: #444;
+    color: white;
+    border-radius: 40px;
+    border: 2px solid #444;
+    transition: .5 ease;
+    margin-top: 40px;
+    margin-left: 30px;
+    margin-right: auto;
+    font-size: 1rem;
+}
+
+.left-side button:hover {
+    background-color: white;
+    color: #444;
+}
+#sideNav-content {
+    display: none;
+}
+
+.navlinks {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: max-content;
+  
+}
+
+.navlinks a {
+    text-decoration: none;
+    color: #444;
+    font-size: 1.5rem;
+    margin: 20px 5px;
+  
+}
+
+.navlinks button {
+    width: 100%;
+    text-align: left;
+    height: 80px;
+}
+
+
+mat-sidenav {
+    width: 50%;
+}
+
+@media only screen and (max-width: 992px) {
+    
+
+    #desktop-content {
+        display: none;
+    }
+    #sideNav-content {
+        display: flex;
+    }
+    .container{
+        flex-direction: column-reverse;
+    }
+    .left-side {
+        width: 100%;
+    }
+    .right-side {
+       
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 790px) {
+  
+ 
+    #desktop-content {
+        display: none;
+    }
+    #sideNav-content {
+        display: flex;
+    }
+    .container{
+        flex-direction: column-reverse;
+        
+    }
+    .right-side {
+        width: 100%;
+    }
+    .left-side {
+        width: 100%;
+    }
+    .left-side h2 {
+        text-align: center;
+        font-size: 3rem;
+    }
+}

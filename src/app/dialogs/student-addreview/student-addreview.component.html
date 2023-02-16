@@ -1,0 +1,35 @@
+<mat-dialog-content>
+    <div class="container">
+        <h1>Review Company</h1>
+        <div class="company-information">
+            <img [src]="recruiter.companyLogo" alt="">
+            <div class="recruiter-information">
+                <h2>{{recruiter.companyName}}</h2>
+                
+                <form (ngSubmit)="submitReview(ReviewForm.value)" #ReviewForm = "ngForm">
+                    <ngx-star-rating [(ngModel)] = "rating" [id]="'rating2'" name="rating" required></ngx-star-rating>
+                    <mat-form-field appearance="outline">
+        
+                        <mat-label>Comment</mat-label>
+                        <textarea matInput [(ngModel)]="comment" type="text" name="comment" placeholder="Enter your comment here" >
+                                    
+                        </textarea>
+        
+                    </mat-form-field>
+                  
+                    <input type="hidden" name="jobOfferId" [(ngModel)]="jobOfferData.id" #applicationId="ngModel">
+                    <div class="buttons">
+                        <button mat-raised-button type="submit" [disabled]="ReviewForm.invalid">Submit</button>
+                        <button mat-raised-button mat-dialog-close type="button">Cancel</button>
+                    
+                    </div>
+               
+        
+                </form>
+            </div>
+         
+        </div>
+   
+
+    </div>
+</mat-dialog-content>

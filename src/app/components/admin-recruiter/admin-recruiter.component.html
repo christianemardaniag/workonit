@@ -1,0 +1,388 @@
+<app-navbar (menuClicked)="childEvent($event)"></app-navbar>
+
+<div class="container" id="desktop-content">
+    <div class="active-evaluators" [hidden]="tableStatus">
+        <div class="actions">
+            <mat-form-field appearance="outline">
+                <mat-label>Search</mat-label>
+                <mat-icon matPrefix>search</mat-icon>
+                <input matInput (keyup)="applyFilter($event)" #input>
+            </mat-form-field>
+
+        </div>
+
+        <div class="table-buttons">
+            <mat-button-toggle-group [(ngModel)]="tableStatus">
+                <mat-button-toggle (click)=" activeButton()">Active</mat-button-toggle>
+                <mat-button-toggle (click)=" archivedButton()">Archived</mat-button-toggle>
+
+
+            </mat-button-toggle-group>
+            <button mat-raised-button (click)="addDialog()"> Add Recruiter</button>
+
+
+        </div>
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource" matSort #sort1="matSort">
+
+
+
+                <ng-container matColumnDef="companyName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Company Name</th>
+                    <td mat-cell *matCellDef="let row"> {{row.companyName}} </td>
+                </ng-container>
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header hidden> Id </th>
+                    <td mat-cell *matCellDef="let row" hidden> {{row.id}} </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="recruiterName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Recruiter Name </th>
+                    <td mat-cell *matCellDef="let row"> {{row.recruiterName}} </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="email">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+                    <td mat-cell *matCellDef="let row"> {{row.email}} </td>
+                </ng-container>
+                <ng-container matColumnDef="dateAdded">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Date Added </th>
+                    <td mat-cell *matCellDef="let row"> {{row.dateAdded}} </td>
+                </ng-container>
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+                    <td mat-cell *matCellDef="let row">
+                        <button mat-icon-button color="accent" (click)="viewDialog(row)"><mat-icon>remove_red_eye</mat-icon></button>
+                         <button mat-icon-button color="primary" (click)="editDialog(row)"><mat-icon>edit</mat-icon></button>
+                        <button mat-icon-button color="warn" (click)="deleteDialog(row)"><mat-icon>delete</mat-icon></button>
+                        
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                </tr>
+            </table>
+
+            <mat-paginator #activeTable="matPaginator" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+        </div>
+
+    </div>
+
+    <div class="deactive-evaluators" [hidden]="!tableStatus">
+        <div class="actions">
+            <mat-form-field appearance="outline">
+                <mat-label>Search</mat-label>
+                <mat-icon matPrefix>search</mat-icon>
+                <input matInput (keyup)="applyFilter2($event)" #input>
+            </mat-form-field>
+
+        </div>
+
+        <div class="table-buttons">
+            <mat-button-toggle-group [(ngModel)]="tableStatus">
+                <mat-button-toggle (click)=" activeButton()">Active</mat-button-toggle>
+                <mat-button-toggle (click)=" archivedButton()">Archived</mat-button-toggle>
+
+
+            </mat-button-toggle-group>
+            <button mat-raised-button (click)="addDialog()"> Add Recruiter</button>
+
+
+        </div>
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource2" matSort #sort2="matSort">
+
+
+
+                <ng-container matColumnDef="companyName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Company Name</th>
+                    <td mat-cell *matCellDef="let row"> {{row.companyName}} </td>
+                </ng-container>
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header hidden> Id </th>
+                    <td mat-cell *matCellDef="let row" hidden> {{row.id}} </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="recruiterName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Recruiter Name </th>
+                    <td mat-cell *matCellDef="let row"> {{row.recruiterName}} </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="email">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+                    <td mat-cell *matCellDef="let row"> {{row.email}} </td>
+                </ng-container>
+                <ng-container matColumnDef="dateAdded">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header hidden> Date Added </th>
+                    <td mat-cell *matCellDef="let row" hidden> {{row.dateAdded}} </td>
+                </ng-container>
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+                    <td mat-cell *matCellDef="let row">
+                        <button mat-icon-button color="primary" (click)="reactiveDialog(row)"><mat-icon>autorenew</mat-icon></button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                </tr>
+            </table>
+
+            <mat-paginator #archivedTable="matPaginator" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+        </div>
+
+    </div>
+
+
+</div>
+
+<div class="side-nav">
+
+    <mat-sidenav-container>
+        <mat-sidenav [opened]="sideNavOpened" (closed)="sideNavClose()">
+            <div class="navlinks" *ngIf="checkAuth == true && user == 'student'">
+
+                <a routerLink="/StudentHome">Home</a>
+    
+    
+                <a routerLink="/StudentApplication">My Application</a>
+    
+    
+                <a routerLink="/Profile">Profile</a>
+    
+    
+                <a [matMenuTriggerFor]="menu">About Us</a>
+    
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="goToAboutWork()">About Work On It</button>
+                    <button mat-menu-item (click)="goToAboutCICT()">About CICT</button>
+                    <button mat-menu-item (click)="goToAboutDevelopers()">About the Developers</button>
+                </mat-menu>
+                <div class="nav-buttons">
+                    <button mat-button (click)="openNotif()">
+                        <mat-icon [matBadge]="notifCounter" matBadgeOverlap="false">notifications</mat-icon>
+                      </button>
+                      <button mat-button (click)="openDialog()">
+                        <mat-icon>logout</mat-icon>
+                      </button>
+                </div>
+            
+            </div>
+    
+            <div class="navlinks" *ngIf="checkAuth == true && user == 'admin'">
+    
+                <a routerLink="/AdminDashboard">Dashboard</a>
+    
+    
+                <a routerLink="/AdminStudent">Student</a>
+    
+    
+                <a routerLink="/AdminRecruiter">Recruiter</a>
+    
+    
+                <a [matMenuTriggerFor]="menu">System Content</a>
+    
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="goToAdminAboutWork()">About Work On It</button>
+                    <button mat-menu-item (click)="goToAdminAboutCICT()">About CICT</button>
+                    <button mat-menu-item (click)="goToAdminAboutDevelopers()">About the Developers</button>
+                </mat-menu>
+    
+                <button mat-button (click)="openDialog()">
+                <mat-icon>logout</mat-icon>
+              </button>
+            </div>
+    
+            <div class="navlinks" *ngIf="checkAuth == true && user == 'recruiter'">
+    
+                <a routerLink="/RecruiterDashboard">Dashboard</a>
+    
+    
+                <a routerLink="/RecruiterApplicants">Applicants</a>
+    
+    
+                <a routerLink="/RecruiterJobOffer">Job Offer</a>
+    
+                <a routerLink="/RecruiterProfile">Profile</a>
+    
+    
+    
+    
+                <div class="nav-buttons">
+                    <button mat-button (click)="openNotif()">
+                        <mat-icon [matBadge]="notifCounter" matBadgeOverlap="false">notifications</mat-icon>
+                      </button>
+                      <button mat-button (click)="openDialog()">
+                        <mat-icon>logout</mat-icon>
+                      </button>
+                </div>
+            </div>
+        </mat-sidenav>
+
+        <mat-sidenav-content>
+            <div class="container" id="sideNav-content">
+                <div class="active-evaluators" *ngIf="!tableStatus">
+                    <div class="actions">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Search</mat-label>
+                            <mat-icon matPrefix>search</mat-icon>
+                            <input matInput (keyup)="applyFilter3($event)" #input>
+                        </mat-form-field>
+            
+                    </div>
+            
+                    <div class="table-buttons">
+                        <mat-button-toggle-group [(ngModel)]="tableStatus">
+                            <mat-button-toggle (click)=" activeButton()">Active</mat-button-toggle>
+                            <mat-button-toggle (click)=" archivedButton()">Archived</mat-button-toggle>
+            
+            
+                        </mat-button-toggle-group>
+                        <button mat-raised-button (click)="addDialog()"> Add Recruiter</button>
+            
+            
+                    </div>
+                    <div class="mat-elevation-z8">
+                        <table mat-table [dataSource]="dataSource3" matSort #sort3="matSort">
+            
+            
+            
+                            <ng-container matColumnDef="companyName">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Company Name</th>
+                                <td mat-cell *matCellDef="let row"> {{row.companyName}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="id">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header hidden> Id </th>
+                                <td mat-cell *matCellDef="let row" hidden> {{row.id}} </td>
+                            </ng-container>
+            
+            
+                            <ng-container matColumnDef="recruiterName">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Recruiter Name </th>
+                                <td mat-cell *matCellDef="let row"> {{row.recruiterName}} </td>
+                            </ng-container>
+            
+            
+                            <ng-container matColumnDef="email">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+                                <td mat-cell *matCellDef="let row"> {{row.email}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="dateAdded">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Date Added </th>
+                                <td mat-cell *matCellDef="let row"> {{row.dateAdded}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="actions">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+                                <td mat-cell *matCellDef="let row">       
+                                     <button mat-icon-button color="accent" (click)="viewDialog(row)"><mat-icon>remove_red_eye</mat-icon></button>
+                                     <button mat-icon-button color="primary" (click)="editDialog(row)"><mat-icon>edit</mat-icon></button>
+                                    <button mat-icon-button color="warn" (click)="deleteDialog(row)"><mat-icon>delete</mat-icon></button>
+                                </td>
+                            </ng-container>
+            
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            
+            
+                            <tr class="mat-row" *matNoDataRow>
+                                <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                            </tr>
+                        </table>
+            
+                       
+                    </div>
+                    <mat-paginator #activeTable2="matPaginator" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+            
+                </div>
+            
+                <div class="deactive-evaluators"  *ngIf="tableStatus">
+                    <div class="actions">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Search</mat-label>
+                            <mat-icon matPrefix>search</mat-icon>
+                            <input matInput (keyup)="applyFilter4($event)" #input>
+                        </mat-form-field>
+            
+                    </div>
+            
+                    <div class="table-buttons">
+                        <mat-button-toggle-group [(ngModel)]="tableStatus">
+                            <mat-button-toggle (click)=" activeButton()">Active</mat-button-toggle>
+                            <mat-button-toggle (click)=" archivedButton()">Archived</mat-button-toggle>
+            
+            
+                        </mat-button-toggle-group>
+                        <button mat-raised-button (click)="addDialog()"> Add Recruiter</button>
+            
+            
+                    </div>
+                    <div class="mat-elevation-z8">
+                        <table mat-table [dataSource]="dataSource4" matSort #sort4="matSort">
+            
+            
+            
+                            <ng-container matColumnDef="companyName">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Company Name</th>
+                                <td mat-cell *matCellDef="let row"> {{row.companyName}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="id">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header hidden> Id </th>
+                                <td mat-cell *matCellDef="let row" hidden> {{row.id}} </td>
+                            </ng-container>
+            
+            
+                            <ng-container matColumnDef="recruiterName">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Recruiter Name </th>
+                                <td mat-cell *matCellDef="let row"> {{row.recruiterName}} </td>
+                            </ng-container>
+            
+            
+                            <ng-container matColumnDef="email">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+                                <td mat-cell *matCellDef="let row"> {{row.email}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="dateAdded">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header hidden> Date Added </th>
+                                <td mat-cell *matCellDef="let row" hidden> {{row.dateAdded}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="actions">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+                                <td mat-cell *matCellDef="let row">
+                                    <button mat-icon-button color="primary" (click)="reactiveDialog(row)"><mat-icon>autorenew</mat-icon></button>
+                                </td>
+                            </ng-container>
+            
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            
+            
+                            <tr class="mat-row" *matNoDataRow>
+                                <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                            </tr>
+                        </table>
+            
+                      
+                    </div>
+                    <mat-paginator #archivedTable2="matPaginator" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+                </div>
+            
+            
+            </div>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>
+
+<app-footer></app-footer>
