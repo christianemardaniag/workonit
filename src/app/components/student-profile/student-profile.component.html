@@ -1,21 +1,21 @@
 <app-navbar (menuClicked)="childEvent($event)"></app-navbar>
-<div class="side-nav">
+<!-- <div class="side-nav">
 
     <mat-sidenav-container>
         <mat-sidenav [opened]="sideNavOpened" (closed)="sideNavClose()">
             <div class="navlinks" *ngIf="checkAuth == true && user == 'student'">
 
-                <a routerLink="/StudentHome">Home</a>
-    
-    
+                <a routerLink="/StudentHome">Homeee</a>
+
+
                 <a routerLink="/StudentApplication">My Application</a>
-    
-    
+
+
                 <a routerLink="/Profile">Profile</a>
-    
-    
+
+
                 <a [matMenuTriggerFor]="menu">About Us</a>
-    
+
                 <mat-menu #menu="matMenu">
                     <button mat-menu-item (click)="goToAboutWork()">About Work On It</button>
                     <button mat-menu-item (click)="goToAboutCICT()">About CICT</button>
@@ -24,60 +24,60 @@
                 <div class="nav-buttons">
                     <button mat-button (click)="openNotif()">
                         <mat-icon [matBadge]="notifCounter" matBadgeOverlap="false">notifications</mat-icon>
-                      </button>
-                      <button mat-button (click)="openDialog()">
+                    </button>
+                    <button mat-button (click)="openDialog()">
                         <mat-icon>logout</mat-icon>
-                      </button>
+                    </button>
                 </div>
-            
+
             </div>
-    
+
             <div class="navlinks" *ngIf="checkAuth == true && user == 'admin'">
-    
+
                 <a routerLink="/AdminDashboard">Dashboard</a>
-    
-    
+
+
                 <a routerLink="/AdminStudent">Student</a>
-    
-    
+
+
                 <a routerLink="/AdminRecruiter">Recruiter</a>
-    
-    
+
+
                 <a [matMenuTriggerFor]="menu">System Content</a>
-    
+
                 <mat-menu #menu="matMenu">
                     <button mat-menu-item (click)="goToAdminAboutWork()">About Work On It</button>
                     <button mat-menu-item (click)="goToAdminAboutCICT()">About CICT</button>
                     <button mat-menu-item (click)="goToAdminAboutDevelopers()">About the Developers</button>
                 </mat-menu>
-    
+
                 <button mat-button (click)="openDialog()">
-                <mat-icon>logout</mat-icon>
-              </button>
+                    <mat-icon>logout</mat-icon>
+                </button>
             </div>
-    
+
             <div class="navlinks" *ngIf="checkAuth == true && user == 'recruiter'">
-    
+
                 <a routerLink="/RecruiterDashboard">Dashboard</a>
-    
-    
+
+
                 <a routerLink="/RecruiterApplicants">Applicants</a>
-    
-    
+
+
                 <a routerLink="/RecruiterJobOffer">Job Offer</a>
-    
+
                 <a routerLink="/RecruiterProfile">Profile</a>
-    
-    
-    
-    
+
+
+
+
                 <div class="nav-buttons">
                     <button mat-button (click)="openNotif()">
                         <mat-icon [matBadge]="notifCounter" matBadgeOverlap="false">notifications</mat-icon>
-                      </button>
-                      <button mat-button (click)="openDialog()">
+                    </button>
+                    <button mat-button (click)="openDialog()">
                         <mat-icon>logout</mat-icon>
-                      </button>
+                    </button>
                 </div>
             </div>
         </mat-sidenav>
@@ -86,7 +86,8 @@
             <div class="container" id="sideNav-content">
                 <div class="left-side">
                     <div class="profile-picture">
-                        <img [src]="student.photoURL ? student.photoURL : '/assets/images/defaultimage.jpg'" alt="Profile Picture">
+                        <img [src]="student.photoURL ? student.photoURL : '/assets/images/defaultimage.jpg'"
+                            alt="Profile Picture">
                     </div>
                     <div class="student-name">
                         <h2>{{student.firstName + " "+ student.middleName + " "+ student.lastName | titlecase}}</h2>
@@ -101,7 +102,7 @@
                         </div>
                         <div class="merge">
                             <i class="material-icons">phone</i>
-            
+
                             <h2>Contact Number: {{student.contactNo}} </h2>
                         </div>
                         <div class="merge">
@@ -119,7 +120,7 @@
                         </div>
                         <div class="merge">
                             <i class="material-icons">school</i>
-            
+
                             <h2>Section: {{student.section}} </h2>
                         </div>
                     </div>
@@ -127,54 +128,175 @@
                         <h3>SKILLS</h3>
                         <ul>
                             <li *ngFor="let skill of student.skills">{{skill | titlecase}}</li>
-            
+
                         </ul>
                     </div>
                     <div class="rating-container">
                         <h3>RATING</h3>
                         <div class="rating" *ngIf="student.positive != 0 || student.negative != 0">
                             <div class="sentiment-chart">
-                                        
+
                                 <canvas id="myChart-sideNav"></canvas>
-                    
-                        </div>
-                        <div class="rating-label" *ngIf="student.positive != 0 || student.negative != 0">
-                                <ngx-star-rating [(ngModel)] = "rating" [id]="'rating'" name="rating" [disabled]="true"  ></ngx-star-rating>
+
+                            </div>
+                            <div class="rating-label" *ngIf="student.positive != 0 || student.negative != 0">
+                                <ngx-star-rating [(ngModel)]="rating" [id]="'rating'" name="rating"
+                                    [disabled]="true"></ngx-star-rating>
                                 <h4>{{ratingLabel | number : '1.2-2'}}</h4>
-                        </div>
-                      
-                   
-            
-                            
-                        
+                            </div>
                         </div>
                         <h4 *ngIf="student.positive == 0  && student.negative == 0">No data to show</h4>
-                    
+
                     </div>
                     <div class="resume-container">
                         <h3>RESUME</h3>
                         <div class="merge">
                             <i class="material-icons">link</i>
-            
+
                             <a [href]="student.resume" target="_blank" *ngIf="student.resume">Link of the resume</a>
                             <p *ngIf="!student.resume">No resume uploaded</p>
                         </div>
                     </div>
                     <div class="buttons">
-            
+
                         <button type="button" mat-raised-button (click)="goToEditProfile()">Edit Profile</button>
                         <button type="button" mat-raised-button (click)="generateResume()">Generate Resume</button>
                     </div>
                 </div>
             </div>
-            
-            
+
+
         </mat-sidenav-content>
     </mat-sidenav-container>
+</div> -->
+
+<div class="container" style="width: 1000px;">
+    <div class="bg-light border p-5 my-3">
+        <div class="d-flex justify-content-between">
+            <div class="d-flex align-items-center">
+                <div>
+
+                    <div class="display-5 fw-bold mb-3">{{student.firstName + " "+ student.middleName + " "+
+                        student.lastName | titlecase}}</div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="d-flex align-items-center my-2"><i class="material-icons">email</i> <span
+                                    class="fs-5 ms-2">{{student.email}}</span></div>
+                            <div class="d-flex align-items-center my-2"><i class="material-icons">phone</i> <span
+                                    class="fs-5 ms-2">{{student.contactNo}}</span></div>
+                            <div class="d-flex align-items-center my-2"><i class="material-icons">location_on</i> <span
+                                    class="fs-5 ms-2">{{student.address}}</span></div>
+                            <div class="d-flex align-items-center my-2"><i class="material-icons"
+                                    *ngIf="student.gender =='male'">male</i>
+                                <i class="material-icons" *ngIf="student.gender =='female'">female</i> <span
+                                    class="fs-5 ms-2">{{student.gender | titlecase}}</span>
+                            </div>
+                        </div>
+                        <div class="col d-print-none">
+                            <div class="d-flex align-items-center my-2 d-print-none"><i class="material-icons">tag</i>
+                                <span class="fs-5 ms-2">{{student.idno}}</span>
+                            </div>
+                            <div class="d-flex align-items-center my-2 d-print-none"><i
+                                    class="material-icons">school</i>
+                                <span class="fs-5 ms-2">Section: {{student.section}}</span>
+                            </div>
+                            <div class="d-flex align-items-center my-2 d-print-none"><i
+                                    class="material-icons">download</i>
+                                <span class="fs-5 ms-2">
+                                    <a [href]="student.resume" target="_blank" *ngIf="student.resume">Resume</a>
+                                    <p *ngIf="!student.resume">No resume uploaded</p>
+                                </span>
+                            </div>
+                            <div class="d-flex align-items-center my-2 d-print-none"><i
+                                    class="material-icons">thumbs_up_down</i>
+                                <span class="fs-5 ms-2">
+                                    <div class="rating" *ngIf="student.positive != 0 || student.negative != 0">
+                                        <div class="sentiment-chart">
+
+                                            <canvas id="myChart-sideNav2"></canvas>
+
+                                        </div>
+                                        <div class="rating-label"
+                                            *ngIf="student.positive != 0 || student.negative != 0">
+                                            <ngx-star-rating [(ngModel)]="rating" [id]="'rating'" name="rating"
+                                                [disabled]="true"></ngx-star-rating>
+                                            <h4>{{ratingLabel | number : '1.2-2'}}</h4>
+                                        </div>
+                                    </div>
+                                    <span class="fs-5 ms-2" *ngIf="student.positive == 0  && student.negative == 0">No
+                                        Rating</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="">
+                <img [src]="student.photoURL ? student.photoURL : '/assets/images/defaultimage.jpg'"
+                    alt="profile picture" class="img-fluid img-thumbnail" width="200px" height="200px">
+            </div>
+        </div>
+    </div>
+
+    <div class="mx-5">
+        <div class="mb-3">
+
+            <h1 class="fw-bold mb-0">Career Objective</h1>
+            <hr class="mt-0">
+            <p class="fs-5" style="line-height: normal; text-align: justify; text-justify: inter-word;">
+                {{student.careerObjective}}</p>
+        </div>
+
+        <div class="mb-3">
+            <h1 class="fw-bold mb-0">Skills</h1>
+            <hr class="mt-0">
+            <span class="badge text-bg-light fs-5 me-3" *ngFor="let skill of student.skills">{{skill |
+                titlecase}}</span>
+        </div>
+
+        <div class="mb-3">
+            <ng-container *ngIf="student.educationalBackground[0].school!=''">
+                <h1 class="fw-bold mb-0">Educational Background</h1>
+                <hr class="mt-0">
+                <div class="row row-cols-3 g-2">
+                    <ng-container *ngFor="let eb of student.educationalBackground">
+                        <div class="col">
+                            <div class="h-100 fs-5 border p-3">
+                                <div class="fw-bold mb-2">{{eb.school}}</div>
+                                <div class="mb-1">{{eb.basicEducation}}</div>
+                                <div class="">{{eb.startYear}} - {{eb.endYear}}</div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </ng-container>
+        </div>
+
+        <div class="mb-3">
+            <ng-container *ngIf="student.certificate[0].title!=''">
+                <h1 class="fw-bold mb-0">Certificate and Seminars</h1>
+                <hr class="mt-0">
+                <ul class="fs-5">
+                    <ng-container *ngFor="let cert of student.certificate">
+                        <li class="mb-2">
+                            <div class="fw-bold mb-1">{{cert.title}}</div>
+                            <small>{{cert.date | date:"MMMM y"}}</small>
+                        </li>
+                    </ng-container>
+                </ul>
+            </ng-container>
+        </div>
+        <div class="my-5 text-center d-print-none">
+            <button type="button" class="btn btn-lg mx-2 btn-secondary" (click)="goToEditProfile()">Edit
+                Profile</button>
+            <button type="button" class="btn btn-lg mx-2 btn-primary" onclick="window.print()">Generate Resume</button>
+        </div>
+    </div>
 </div>
+
 <div class="container" id="desktop-content">
 
-    <div class="left-side">
+    <!-- <div class="left-side">
         <div class="profile-picture">
             <img [src]="student.photoURL ? student.photoURL : '/assets/images/defaultimage.jpg'" alt="Profile Picture">
         </div>
@@ -182,9 +304,9 @@
             <h2>{{student.firstName + " "+ student.middleName + " "+ student.lastName | titlecase}}</h2>
         </div>
 
-    </div>
+    </div> -->
     <div class="right-side">
-        <div class="personal-information">
+        <!-- <div class="personal-information">
             <h3>PERSONAL INFORMATION</h3>
             <div class="merge">
                 <i class="material-icons">email</i>
@@ -212,7 +334,7 @@
                 <i class="material-icons">school</i>
 
                 <h2>Section: {{student.section}} </h2>
-             
+
             </div>
         </div>
         <div class="skills-container">
@@ -224,24 +346,8 @@
         </div>
         <div class="rating-container">
             <h3>RATING</h3>
-            <div class="rating" *ngIf="student.positive != 0 || student.negative != 0">
-                <div class="sentiment-chart">
-                            
-                    <canvas id="myChart-sideNav2"></canvas>
-        
-            </div>
-            <div class="rating-label" *ngIf="student.positive != 0 || student.negative != 0">
-                    <ngx-star-rating [(ngModel)] = "rating" [id]="'rating'" name="rating" [disabled]="true"  ></ngx-star-rating>
-                    <h4>{{ratingLabel | number : '1.2-2'}}</h4>
-            </div>
-          
-       
 
-                
-            
-            </div>
-            <h4 *ngIf="student.positive == 0  && student.negative == 0">No data to show</h4>
-        
+
         </div>
         <div class="resume-container">
             <h3>RESUME</h3>
@@ -251,13 +357,13 @@
                 <a [href]="student.resume" target="_blank" *ngIf="student.resume">Link of the resume</a>
                 <p *ngIf="!student.resume">No resume uploaded</p>
             </div>
-        </div>
-    
-        <div class="buttons">
+        </div> -->
 
-            <button type="button" mat-raised-button (click)="goToEditProfile()">Edit Profile</button>
-            <button type="button" mat-raised-button (click)="generateResume()">Generate Resume</button>
-        </div>
+        <!-- <div class="buttons">
+
+            <button type="button" class="btn btn-lg mx-2 btn-secondary" (click)="goToEditProfile()">Edit Profile</button>
+            <button type="button" class="btn btn-lg mx-2 btn-primary" (click)="generateResume()">Generate Resume</button>
+        </div> -->
     </div>
 </div>
 

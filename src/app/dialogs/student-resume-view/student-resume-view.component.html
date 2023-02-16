@@ -3,7 +3,7 @@
 
         <div class="left-side">
             <div class="profile-picture">
-                <img [src]="student.photoURL ? student.photoURL : '/assets/images/defaultimage.jpg'" alt="Profile Picture">
+                <img id="profile-img" [src]="student.photoURL ? student.photoURL : '/assets/images/defaultimage.jpg'" alt="Profile Picture">
             </div>
             <div class="student-name">
                 <h2>{{student.firstName + " "+ student.middleName + " "+ student.lastName | titlecase}}</h2>

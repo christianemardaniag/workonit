@@ -1,5 +1,318 @@
 <app-navbar (menuClicked)="childEvent($event)"></app-navbar>
-<div class="side-nav">
+
+<div class="container p-5 bg-light" style="width: 1000px;">
+
+    <form #Updateform="ngForm" (ngSubmit)="editProfileDetails(Updateform.value)" id="Updateform">
+        <div class="row">
+            <div class="col-8">
+                <div class="row g-2">
+                    <div class="h3">Personal Information</div>
+                    <hr>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="firstName" class="form-label">First Name *</label>
+                            <input type="text" class="form-control" id="firstName" [(ngModel)]="student.firstName"
+                                #firstName="ngModel" required name="firstName">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="middleName" class="form-label">Middle Name</label>
+                            <input type="text" class="form-control" id="middleName" [(ngModel)]="student.middleName"
+                                #middleName="ngModel" name="middleName">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="lastName" class="form-label">Last Name *</label>
+                            <input type="text" class="form-control" id="lastName" [(ngModel)]="student.lastName"
+                                #lastName="ngModel" required name="lastName">
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="address" class="form-label">Address *</label>
+                    <input type="text" class="form-control" id="address" [(ngModel)]="student.address"
+                        #address="ngModel" required name="address">
+                </div>
+                <div class="row g-2">
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="contactNo" class="form-label">Contact Number *</label>
+                            <div class="input-group">
+                                <span class="input-group-text" id="basic-addon1">+63</span>
+                                <input type="text" class="form-control" id="contactNo" [(ngModel)]="student.contactNo"
+                                    name="contactNo" #contactNo="ngModel" required pattern="^9\d{9}$">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="studentNo" class="form-label">Student Number *</label>
+                            <input type="text" class="form-control" id="studentNo" [(ngModel)]="student.idno"
+                                #idNo="ngModel" required name="idNo">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Section *</label>
+                            <select class="form-select" required name="section" [(ngModel)]="student.section"
+                                #section="ngModel">
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                                <option value="D">D</option>
+                                <option value="E">E</option>
+                                <option value="F">F</option>
+                                <option value="G">G</option>
+                                <option value="H">H</option>
+                                <option value="I">I</option>
+                                <option value="J">J</option>
+                                <option value="K">K</option>
+                                <option value="L">L</option>
+                                <option value="M">M</option>
+                                <option value="N">N</option>
+                                <option value="O">O</option>
+                                <option value="P">P</option>
+                                <option value="Q">Q</option>
+                                <option value="R">R</option>
+                                <option value="S">S</option>
+                                <option value="T">T</option>
+                                <option value="U">U</option>
+                                <option value="V">V</option>
+                                <option value="W">W</option>
+                                <option value="X">X</option>
+                                <option value="Y">Y</option>
+                                <option value="Z">Z</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="h3 mt-3">Skills</div>
+                <hr>
+                <div class="row mb-3">
+                    <div class="col-8">
+                        <input [(ngModel)]="inputedSkill" type="text" name="skills" list="skillsOption"
+                            class="form-control" #skill="ngModel" (ngModelChange)="getInputSkill($event)">
+                    </div>
+                    <div class="col">
+                        <button type="button" class="btn btn-primary w-100" (click)="addSkill()">Add Skill</button>
+                    </div>
+                </div>
+                <div class="mb-5">
+                    <span class="position-relative p-2 text-bg-dark me-3 rounded"
+                        *ngFor="let skill of skills;let i = index">
+                        {{skill | titlecase}}
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                            style="cursor: pointer;" (click)="removeSkill(i)">
+                            x
+                        </span>
+                    </span>
+                </div>
+                <datalist id="skillsOption">
+                    <option value="Cybersecurity"></option>
+                    <option value="Network setup"></option>
+                    <option value="Programming languages"></option>
+                    <option value="Network architecture"></option>
+                    <option value="Network security"></option>
+                    <option value="Front-end development"></option>
+                    <option value="Back-end development"></option>
+                    <option value="Cloud computing"></option>
+                    <option value="User experience design"></option>
+                    <option value="User interface design"></option>
+                    <option value="Cloud migration"></option>
+                    <option value="SQL software"></option>
+                    <option value="Operating systems"></option>
+                    <option value="Software"></option>
+                    <option value="Software development"></option>
+                    <option value="Data modeling"></option>
+                    <option value="Data security"></option>
+                    <option value="DevOps"></option>
+                    <option value="Mobile app development"></option>
+                    <option value="IT management"></option>
+                    <option value="Data migration"></option>
+                    <option value="Database administration"></option>
+                    <option value="Cloud management"></option>
+                    <option value="Systems Analysis"></option>
+                    <option value="Data Mining"></option>
+                    <option value="Troubleshooting"></option>
+                    <option value="Cloud architecture"></option>
+                    <option value="Project management"></option>
+                    <option value="Customer support"></option>
+                    <option value="Debugging"></option>
+                    <option value="Experience with types of hardware"></option>
+                    <option value="AutoCAD"></option>
+                    <option value="Data Science"></option>
+                    <option value="Encryption"></option>
+                    <option value="Game development"></option>
+                    <option value="Gamification"></option>
+                    <option value="Graphic design"></option>
+                    <option value="Workflow automation"></option>
+                    <option value="Customer relationship management, CRM"></option>
+                    <option value="Robotics"></option>
+                    <option value="Backup and recovery"></option>
+                    <option value="Batch processing"></option>
+                    <option value="Deploying applications in a cloud environment"></option>
+                    <option value="Information systems"></option>
+                    <option value="Integration of open source technology"></option>
+                    <option value="Artificial intelligence"></option>
+                    <option value="Database auditing"></option>
+                    <option value="NoSQL databases"></option>
+                    <option value="Service Desk"></option>
+                    <option value="Machine Learning"></option>
+                    <option value="Adaptability"></option>
+                    <option value="Attention to detail"></option>
+                    <option value="Communication"></option>
+                    <option value="Confidence"></option>
+                    <option value="Conflict resolution"></option>
+                    <option value="Creativity"></option>
+                    <option value="Critical thinking"></option>
+                    <option value="Customer service"></option>
+                    <option value="Dedication"></option>
+                    <option value="Delegation"></option>
+                    <option value="Dependability"></option>
+                    <option value="Empathy"></option>
+                    <option value="Energy"></option>
+                    <option value="Enthusiasm"></option>
+                    <option value="Feedback"></option>
+                    <option value="Integrity"></option>
+                    <option value="Leadership"></option>
+                    <option value="Listening"></option>
+                    <option value="Management"></option>
+                    <option value="Mentorship"></option>
+                    <option value="Motivation"></option>
+                    <option value="Observation"></option>
+                    <option value="Organization"></option>
+                    <option value="Patience"></option>
+                    <option value="Problem-solving"></option>
+                    <option value="Productivity"></option>
+                    <option value="Research abilities"></option>
+                    <option value="Resilience"></option>
+                    <option value="Resourcefulness"></option>
+                    <option value="Supervision"></option>
+                    <option value="Teamwork"></option>
+                    <option value="Time management"></option>
+                    <option value="Troubleshooting"></option>
+                    <option value="Work ethic"></option>
+                    <option value="Written communication"></option>
+                </datalist>
+
+                <div class="h3 mt-3">Career Objective</div>
+                <hr>
+                <div class="mb-3">
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="careerObjective"
+                        [(ngModel)]="student.careerObjective"></textarea>
+                </div>
+
+                <div ngModelGroup="educationalBackground">
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <div class="h3 mt-3">Educational Background</div>
+                        <div>
+                            <button type="button" class="btn btn-sm btn-primary me-2"
+                                (click)="addEducationalEntry()">Add</button>
+                            <button type="button" class="btn btn-sm btn-secondary"
+                                (click)="removeEducationalEntry()">Remove</button>
+                        </div>
+                    </div>
+                    <hr>
+                    <div [ngModelGroup]="i+''" class="row g-2"
+                        *ngFor="let x of student.educationalBackground; let i = index">
+                        <div class="col-12">
+                            <div class="mb-1">
+                                <label for="school" class="form-label">Name of School (write in full)</label>
+                                <input type="text" class="form-control" [ngModel]="x.school" name="school">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <label for="basicEducation" class="form-label">Basic Education/Degree/Course (write in
+                                    full)</label>
+                                <input type="text" class="form-control" id="basicEducation" [ngModel]="x.basicEducation"
+                                    #basicEducation="ngModel" name="basicEducation">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <label class="form-label">Period of Attendance</label>
+                                <div class="d-flex justify-content-around">
+                                    <input type="number" min="1970" max={{attendanceYear}} class="form-control"
+                                        name="startYear" placeholder="Start Year" [ngModel]="x.startYear">
+                                    <label class="mx-3 pt-1">to</label>
+                                    <input type="number" min="1970" max={{attendanceYear}} class="form-control"
+                                        name="endYear" placeholder="End Year" [ngModel]="x.endYear">
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+
+                <div ngModelGroup="certificate">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="h3 mt-3">Certificate and Seminars</div>
+                        <div>
+                            <div>
+                                <button type="button" class="btn btn-sm btn-primary me-2"
+                                    (click)="addCertificateEntry()">Add</button>
+                                <button type="button" class="btn btn-sm btn-secondary"
+                                    (click)="removeCertificateEntry()">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div [ngModelGroup]="i+''" class="row g-2" *ngFor="let x of student.certificate; let i = index">
+                        <div class="col-12">
+                            <div class="mb-1">
+                                <label for="certificateTitle" class="form-label">Title</label>
+                                <input type="text" class="form-control" [ngModel]="x.title" name="title">
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <div class="mb-3">
+                                <label class="form-label">Date</label>
+                                <input type="date" class="form-control" name="date" [ngModel]="x.date">
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+
+                <div class="text-center mt-3">
+                    <button type="button" class="btn btn-dark me-3" (click)="resetPassword()">Reset Password</button>
+                    <button type="submit" class="btn btn-success px-4" form="Updateform">Save Changes</button>
+                </div>
+            </div>
+            <div class="col">
+                <div class="text-center mb-3">
+                    <img [src]="student.photoURL ? student.photoURL : '/assets/images/defaultimage.jpg'"
+                        class="img-fluid" alt="Profile Picture" width="200px" height="200px">
+                    <button type="button" class="btn btn-sm btn-secondary my-2" (click)="profilepic.click()">Change
+                        Profile Picture</button>
+                    <input type="file" name="profilepic" #profilepic hidden (change)="uploadImage($event)"
+                        accept="image/*">
+                </div>
+                <div class="text-center">
+                    <a [href]="student.resume" *ngIf="student.resume" target="_blank"><img
+                            [src]="'/assets/images/resumeicon.png'" class="img-fluid" alt="Profile Picture" width="75px"
+                            height="75px"><br></a>
+                    <button type="button" class="btn btn-sm btn-secondary my-2" *ngIf="student.resume"
+                        (click)="resume.click()">Change
+                        Resume</button>
+                    <p *ngIf="!student.resume">No resume uploaded</p>
+                    <button type="button" class="btn btn-sm btn-secondary my-2" *ngIf="!student.resume"
+                        (click)="resume.click()">Upload Resume</button>
+                    <input type="file" name="resume" #resume hidden (change)="uploadResume($event)"
+                        accept="application/pdf">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+
+<!-- <div class="side-nav">
 
     <mat-sidenav-container>
         <mat-sidenav [opened]="sideNavOpened" (closed)="sideNavClose()">
@@ -363,5 +676,5 @@
             </div>
         </form>
     </div>
-</div>
+</div> -->
 <app-footer></app-footer>

@@ -5,7 +5,7 @@ a {
     cursor: pointer;
 }
 
-.container {
+.container-nav {
     display: flex;
     width: 100%;
     justify-content: space-between;
@@ -28,7 +28,8 @@ img {
 
 mat-toolbar {
     padding: 30px 0;
-    background-color: #444;
+    background-color: #212529;
+    /* background-color: #444; */
 }
 
 .logo {

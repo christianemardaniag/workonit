@@ -19,105 +19,91 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class StudentProfileEditComponent implements OnInit {
 
-  constructor(public db: DbhelperService, public dbstorage: DbstorageService, public toast: HotToastService, public router:Router, public dialogRef:MatDialog) { }
+  constructor(public db: DbhelperService, public dbstorage: DbstorageService, public toast: HotToastService, public router: Router, public dialogRef: MatDialog) { }
   student: any = {};
   skills: any = [];
   inputedSkill: string = "";
+  attendanceYear = new Date().getFullYear();
 
   ngOnInit(): void {
     this.student = this.db.getCurrentStudent();
     this.skills = this.db.getSkillsCurrentStudent();
     this.checkIfAuth();
-    this.getNotification()
-
-
-  
-
+    this.getNotification();
   }
 
   sideNavOpened = false;
   checkAuth: boolean = false;
   user: any;
-  notifNumber:any;
-  notifData:any = []
+  notifNumber: any;
+  notifData: any = []
   notifCounter = 0
   sideNavClose() {
     this.sideNavOpened = false;
-
   }
 
   childEvent(clicked: boolean) {
     this.sideNavOpened = clicked;
-
   }
-  getNotification(){
- 
+
+  getNotification() {
     const currentUser = localStorage.getItem("currentUser") || '{}'
-    const notifRef = ref(getDatabase(),"Notifications/" + currentUser)
+    const notifRef = ref(getDatabase(), "Notifications/" + currentUser)
     const studentRef = ref(getDatabase(), "Students/")
-    get(studentRef).then((snapshot)=>{
-      if(snapshot.hasChild(currentUser)){
-        onValue(notifRef,(snapshot)=>{
+    get(studentRef).then((snapshot) => {
+      if (snapshot.hasChild(currentUser)) {
+        onValue(notifRef, (snapshot) => {
           this.notifCounter = 0
           this.notifData = []
-            snapshot.forEach((item)=> {
-              var data = item.val()
-              if(data.status == "unread"){
-                this.notifCounter++
-              }
-              data["userType"] = "student"
-              this.notifData.push(data)
-            })
-            
+          snapshot.forEach((item) => {
+            var data = item.val()
+            if (data.status == "unread") {
+              this.notifCounter++
+            }
+            data["userType"] = "student"
+            this.notifData.push(data)
+          })
         })
       }
       else {
-        onValue(notifRef,(snapshot)=>{
+        onValue(notifRef, (snapshot) => {
           this.notifCounter = 0
           this.notifData = []
-            snapshot.forEach((item)=> {
-              var data = item.val()
-              if(data.status == "unread"){
-                this.notifCounter++
-              }
-              data["userType"] = "recruiter"
-              this.notifData.push(data)
-            })
-            
+          snapshot.forEach((item) => {
+            var data = item.val()
+            if (data.status == "unread") {
+              this.notifCounter++
+            }
+            data["userType"] = "recruiter"
+            this.notifData.push(data)
+          })
         })
       }
     })
-
   }
 
   openDialog() {
     this.dialogRef.open(LogoutComponent);
   }
-  openNotif(){
-     this.dialogRef.open(NotificationsViewComponent, {
-      width:"80%",
-      data:this.notifData
-     })
+  openNotif() {
+    this.dialogRef.open(NotificationsViewComponent, {
+      width: "80%",
+      data: this.notifData
+    })
   }
   goToHome() {
-
     var currentUser = localStorage.getItem('currentUser') as string;
-
     if (this.user == "student" && currentUser) {
       this.router.navigate(["Home"]);
     }
-
     else {
-
       this.router.navigate([""]);
     }
   }
 
   checkIfAuth() {
     getAuth().onAuthStateChanged((user) => {
-
       var currentUser = localStorage.getItem('currentUser') as string;
-
       const studentRef = ref(getDatabase(), "Students/");
       const adminRef = ref(getDatabase(), "Administrator/");
       const recruiterRef = ref(getDatabase(), "Recruiters/")
@@ -126,22 +112,17 @@ export class StudentProfileEditComponent implements OnInit {
         get(studentRef).then((snapshot) => {
           if (snapshot.hasChild(currentUser)) {
             this.user = "student";
-
             if (user != null && user?.emailVerified) {
               this.checkAuth = true;
             }
             else {
               this.checkAuth = false;
             }
-       
           }
-
-
         }).then(() => {
           get(adminRef).then((snapshot) => {
             if (snapshot.hasChild(currentUser)) {
               this.user = "admin";
-
               if (user != null) {
                 this.checkAuth = true;
               }
@@ -150,16 +131,11 @@ export class StudentProfileEditComponent implements OnInit {
               }
               this.router.navigate(["AdminDashboard"]);
             }
-     
-
-
           })
         }).then(() => {
           get(recruiterRef).then((snapshot) => {
             if (snapshot.hasChild(currentUser)) {
               this.user = "recruiter";
-
-
               if (user != null) {
                 this.checkAuth = true;
               }
@@ -168,17 +144,11 @@ export class StudentProfileEditComponent implements OnInit {
               }
               this.router.navigate(["RecruiterDashboard"]);
             }
-         
-
-
           });
-
         })
-      }else {
+      } else {
         this.router.navigate([""]);
-        
       }
-
     });
   }
   goToAboutWork() {
@@ -199,12 +169,12 @@ export class StudentProfileEditComponent implements OnInit {
   goToAdminAboutDevelopers() {
     this.router.navigate(["AdminAboutDevelopers"]);
   }
-  goToAboutTheDevelopers(){
+  goToAboutTheDevelopers() {
     this.router.navigate(["AboutDevelopers"])
   }
   editProfileDetails(value: any) {
     var contactNo = "+63" + value.contactNo;
-    this.db.editProfileDetails(value.firstName, value.middleName, value.lastName, value.address, value.idNo, value.section, contactNo, this.skills);
+    this.db.editProfileDetails(value.firstName, value.middleName, value.lastName, value.address, value.idNo, value.section, contactNo, this.skills, value.careerObjective, value.educationalBackground, value.certificate);
   }
   getInputSkill(value: string) {
 
@@ -215,7 +185,6 @@ export class StudentProfileEditComponent implements OnInit {
       this.skills.push(this.inputedSkill);
       this.inputedSkill = "";
     }
-
   }
   removeSkill(index: any) {
     if (index > -1) {
@@ -224,7 +193,6 @@ export class StudentProfileEditComponent implements OnInit {
   }
   resetPassword() {
     var email = this.student.email
-
     this.db.resetPassword(email);
   }
 
@@ -249,6 +217,21 @@ export class StudentProfileEditComponent implements OnInit {
     ).subscribe();
   }
 
+  addEducationalEntry() {
+    this.student.educationalBackground.push({ school: "", basicEducation: "", startYear: 0, endYear: 0 });
+  }
+
+  removeEducationalEntry() {
+    this.student.educationalBackground.pop();
+  }
+
+  addCertificateEntry() {
+    this.student.certificate.push({ title: "", date: 0});
+  }
+
+  removeCertificateEntry() {
+    this.student.certificate.pop();
+  }
 
 }
 
