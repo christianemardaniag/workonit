@@ -207,7 +207,7 @@ export class RecruiterJobofferComponent implements OnInit {
       snapshot.forEach((snapshot2) => {
         var data = snapshot2.val();
 
-        if (data.status == "active") {
+        if (data.status == "active" && data.vacancy > 0) {
           this.jobOffers.push(snapshot2.val());
         }
 

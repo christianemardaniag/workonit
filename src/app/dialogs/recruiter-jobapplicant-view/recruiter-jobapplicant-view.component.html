@@ -180,7 +180,7 @@
                 </form>
             </div>
             <div class="buttons" >
-                <button mat-raised-button (click)="hire()" *ngIf="jobOfferData.status == 'Processing'">Hire</button>
+                <button mat-raised-button (click)="hire()" *ngIf="jobOfferData.status == 'Processing' && jobOffer.vacancy > 0">Hire</button>
                 <button mat-raised-button (click)="reject()" *ngIf="jobOfferData.status == 'Processing'">Reject</button>
                 <button mat-raised-button (click)="addReviewStudent()" *ngIf="jobOfferData.status == 'Hired' && isReviewed == false && isThreeMonthsElapse == true"  >Add Review</button>
             </div>

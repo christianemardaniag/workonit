@@ -245,7 +245,7 @@ export class StudentHomeComponent implements OnInit {
               }).then(()=> {
               
                 if(!this.studentJobApplications.includes(data.id)){
-                  if (data.status == "active" && data.vacancy != 0) {
+                  if (data.status == "active" && data.vacancy > 0) {
                     
                     this.jobOffers.push(data);
                   }

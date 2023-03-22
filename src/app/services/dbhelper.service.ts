@@ -1165,18 +1165,9 @@ export class DbhelperService {
           update(studentApplicantRef, {
             status: "Hired"
           }).then(() => {
-            get(jobOfferRef).then((snapshot) => {
-              var data = snapshot.val()
-              var vacancy = parseInt(data.vacancy)
-              vacancy--
-              update(jobOfferRef, {
-                vacancy: vacancy.toString()
-              })
-            }).then(() => {
-              update(studentRef, {
-                hired: true,
-                hiredDate: currentDate
-              })
+            update(studentRef, {
+              hired: true,
+              hiredDate: currentDate
             }).then(() => {
               const studentApplicationRef = ref(getDatabase(), "Student Applications/" + studentId + "/")
               get(studentApplicationRef).then((snapshot) => {
@@ -1228,10 +1219,19 @@ export class DbhelperService {
           status: "unread",
           companyLogo: data.photoURL
         }).then((res) => {
-          var key = res.key
-          var newNotifRef = ref(getDatabase(), "Notifications/" + recruiterId + "/" + key)
-          update(newNotifRef, {
-            id: key
+          get(jobOfferRef).then((snapshot) => {
+            var data = snapshot.val()
+            var vacancy = parseInt(data.vacancy)
+            vacancy++
+            update(jobOfferRef, {
+              vacancy: vacancy.toString()
+            })
+          }).then(() => {
+            var key = res.key
+            var newNotifRef = ref(getDatabase(), "Notifications/" + recruiterId + "/" + key)
+            update(newNotifRef, {
+              id: key
+            })
           })
         }).then(() => {
           remove(studentApplicantRef).then(() => {
@@ -1286,10 +1286,20 @@ export class DbhelperService {
           update(studentApplicantRef, {
             status: "Confirmation"
           }).then(() => {
-            this.spinner.hide();
-            this.toast.success({ detail: "SUCCESS", summary: "Applicant successfully hired, wait applicant to respond", duration: 3000 });
-            this.dialogRef.closeAll();
-            window.location.reload();
+            get(jobOfferRef).then((snapshot) => {
+              var data = snapshot.val()
+              var vacancy = parseInt(data.vacancy)
+              vacancy--
+              update(jobOfferRef, {
+                vacancy: vacancy.toString()
+              })
+            }).then(() => {
+              this.spinner.hide();
+              this.toast.success({ detail: "SUCCESS", summary: "Applicant successfully hired, wait applicant to respond", duration: 3000 });
+              this.dialogRef.closeAll();
+              window.location.reload();
+            })
+
           })
         })
       }

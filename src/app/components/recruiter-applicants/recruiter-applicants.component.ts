@@ -247,10 +247,7 @@ export class RecruiterApplicantsComponent implements OnInit {
                     if(data != null){
                     const studentRef = ref(getDatabase(),"Students/" + studentId.key)
                     get(studentRef).then((snapshot)=> {
-                      var student = snapshot.val()
-                      
-                         
-                        
+                      var student = snapshot.val()  
                           var newContactNo = ""
                           newContactNo = student.contactNo.replace("+63", "");
                           studentJobOffer["contactNo"] = newContactNo
@@ -258,11 +255,7 @@ export class RecruiterApplicantsComponent implements OnInit {
                           studentJobOffer["studentName"]= student.Firstname + " " + student.Middlename +" "+student.Lastname
                           studentJobOffer["jobPosition"] = data.jobPosition
                           studentJobOffer["studentId"] = studentId.key
-                          
-        
-                     
-                   
-                       
+
                           studentJobApplicationObj.push(studentJobOffer)
                           
                           this.dataSource = new MatTableDataSource(studentJobApplicationObj);
@@ -273,8 +266,6 @@ export class RecruiterApplicantsComponent implements OnInit {
                           this.dataSource2.sort = this.sort2;
                           
                           this.spinner.hide()
-                          
-                      
                     })
                   }
                    
