@@ -21,7 +21,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./student-jobapplications.component.css']
 })
 export class StudentJobapplicationsComponent implements OnInit {
-  displayedColumns: string[] = ['jobPosition',"companyName","recruiterName","email","contactNo","id","date","jobOfferId","recruiterId","status"];
+  displayedColumns: string[] = ['jobPosition',"companyName","id","date","jobOfferId","recruiterId","status"];
   dataSource!: MatTableDataSource<any>;
   dataSource2!: MatTableDataSource<any>;
 
