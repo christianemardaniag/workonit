@@ -284,18 +284,6 @@ export class AdminDashboardComponent implements OnInit {
             },
           });
 
-          var lineChart2 = new Chart("lineChart2", {
-            type: 'line',
-            data: {
-              labels: monthsLabels,
-              datasets: [{
-                label: "Number of Graduates Hired per Month",
-                data: this.hiredPerMonthData,
-                backgroundColor: '#cf542f'
-              },]
-            },
-          });
-
           const dataChart = {
             labels: [
               "Hired",
@@ -380,13 +368,13 @@ export class AdminDashboardComponent implements OnInit {
             }
           });
 
-          var barChart3 = new Chart("ratingChart-sideNav", {
+          var barChart = new Chart("barChart", {
             type: 'bar',
             data: {
-              labels: this.barChartLabels,
+              labels: this.companyLabelsFive,
               datasets: [{
-                label: 'Number of Rating',
-                data: this.recruiterRatingCount,
+                label: 'Number of Applicant',
+                data: this.studentCountSortedFive,
                 backgroundColor: this.colors,
                 borderColor: [],
                 borderWidth: 1
@@ -395,6 +383,7 @@ export class AdminDashboardComponent implements OnInit {
             options: {
               responsive: true,
               maintainAspectRatio: false,
+              indexAxis: 'y',
               scales: {
                 y: {
                   beginAtZero: true
@@ -409,83 +398,12 @@ export class AdminDashboardComponent implements OnInit {
                 },
                 title: {
                   display: true,
-                  text: 'RATING OF EACH COMPANY'
+                  text: 'NUMBER OF APPLICATION PER COMPANY'
                 }
               }
             }
           });
         })
-      }).then(() => {
-        var barChart = new Chart("barChart", {
-          type: 'bar',
-          data: {
-            labels: this.companyLabelsFive,
-            datasets: [{
-              label: 'Number of Applicant',
-              data: this.studentCountSortedFive,
-              backgroundColor: this.colors,
-              borderColor: [],
-              borderWidth: 1
-            }]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            indexAxis: 'y',
-            scales: {
-              y: {
-                beginAtZero: true
-              },
-            }, animation: {
-              duration: 500 * 1.5,
-              easing: 'linear'
-            },
-            plugins: {
-              legend: {
-                display: false
-              },
-              title: {
-                display: true,
-                text: 'NUMBER OF APPLICATION PER COMPANY'
-              }
-            }
-          }
-        });
-
-        var barChart2 = new Chart("barChart-sideNav", {
-          type: 'bar',
-          data: {
-            labels: this.companyLabelsFive,
-            datasets: [{
-              label: 'Number of Applicant',
-              data: this.studentCountSortedFive,
-              backgroundColor: this.colors,
-              borderColor: [],
-              borderWidth: 1
-            }]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-              y: {
-                beginAtZero: true
-              },
-            }, animation: {
-              duration: 500 * 1.5,
-              easing: 'linear'
-            },
-            plugins: {
-              legend: {
-                display: false
-              },
-              title: {
-                display: true,
-                text: 'NUMBER OF APPLICATION PER COMPANY'
-              }
-            }
-          }
-        });
       })
     })
   }
@@ -502,5 +420,5 @@ export class AdminDashboardComponent implements OnInit {
       width: "80%"
     })
   }
-  
+
 }
