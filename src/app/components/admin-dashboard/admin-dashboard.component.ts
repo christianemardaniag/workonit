@@ -45,9 +45,11 @@ export class AdminDashboardComponent implements OnInit {
   ratingCountSorted: any = []
   ratingCountSortedFive: any = []
   companyLabels: any = []
+  perCompany: any = [];
   companyLabelsFive: any = []
   hiredPerMonthData: any = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   hiredPerYearData: any = {}
+  pieChart: any;
   sideNavClose() {
     this.sideNavOpened = false;
   }
@@ -188,6 +190,67 @@ export class AdminDashboardComponent implements OnInit {
     const recruiterRef = ref(getDatabase(), "Recruiters/")
     const studentApplication = ref(getDatabase(), "Student Applications/")
     const studentRef = ref(getDatabase(), "Students/")
+
+    get(recruiterRef).then((snapshot) => {
+      snapshot.forEach(rec => {
+        var recruiter = rec.val()
+        if (recruiter.status == 'activated') {
+          let details = {
+            recruiterID: recruiter.id,
+            companyName: recruiter.companyName,
+            count: [0, 0, 0, 0] // hired, processing, pending, confirmation
+          };
+          this.perCompany.push(details);
+        }
+      });
+    }).then(() => {
+      get(studentApplication).then((snapshot) => {
+        snapshot.forEach((item) => {
+          item.forEach(studApp => {
+            var studentApp = studApp.val();
+            const index = this.perCompany.findIndex((obj) => obj.recruiterID === studentApp.recruiterId);
+            switch (studentApp.status) {
+              case "Hired":
+                this.perCompany[index].count[0]++;
+                break;
+              case "Processing":
+                this.perCompany[index].count[1]++;
+                break;
+              case "Pending":
+                this.perCompany[index].count[2]++;
+                break;
+              case "Confirmation":
+                this.perCompany[index].count[3]++;
+                break;
+
+              default:
+                break;
+            }
+          });
+          this.onCompanyChange(0);
+        });
+      });
+    })
+
+    this.pieChart = new Chart("pieChart", {
+      type: 'pie',
+      data: {
+        labels: ["Hired", "Processing", "Pending", "Confirmation"],
+        datasets: [{
+          data: [0, 0, 0, 0],
+          backgroundColor: ['#003049', '#f77f00', "#d62828", "#fcbf49"],
+        }]
+      },
+      options: {
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: "bottom"
+          },
+        }
+      }
+    });
+
     get(recruiterRef).then((snapshot) => {
       this.numberOfRecruiter = snapshot.size
       snapshot.forEach((item) => {
@@ -196,7 +259,6 @@ export class AdminDashboardComponent implements OnInit {
           this.studentApplication[data.id] = 0
           this.recruiterRating[data.id] = 0
           this.companyLabels[data.id] = data.companyName
-          this.colors.push(this.getRandomColor())
         }
         var numOfChild = 0
         var rating = 0
@@ -277,95 +339,11 @@ export class AdminDashboardComponent implements OnInit {
               labels: monthsLabels,
               datasets: [{
                 label: "Number of Graduates Hired per Month",
-
                 data: this.hiredPerMonthData,
-                backgroundColor: '#cf542f'
+                backgroundColor: '#cf542f',
+                tension: 0.4
               },]
             },
-          });
-
-          const dataChart = {
-            labels: [
-              "Hired",
-              "Not Hired"
-            ],
-            datasets: [{
-              label: 'Number of applicants',
-              data: [this.hiredCount, this.notHiredCount],
-              backgroundColor: ['rgba(255, 170, 40,1)', '#cf542f'],
-              hoverOffset: 4
-            }]
-          };
-
-          var pieChart = new Chart("pieChart", {
-            type: 'pie',
-            data: dataChart,
-            options: {
-              responsive: true,
-              maintainAspectRatio: false,
-              plugins: {
-                legend: {
-                  position: "bottom"
-                },
-                title: {
-                  display: true,
-                  text: 'NUMBER OF HIRED APPLICANTS'
-                }
-              }
-            }
-          });
-
-          var barChart2 = new Chart("ratingChart", {
-            type: 'bar',
-            data: {
-              labels: this.barChartLabels,
-              datasets: [{
-                label: 'Number of Rating',
-                data: this.ratingCountSorted,
-                backgroundColor: this.colors,
-                borderColor: [],
-                borderWidth: 1
-              }]
-            },
-            options: {
-              responsive: true,
-              maintainAspectRatio: false,
-              scales: {
-                y: {
-                  beginAtZero: true
-                },
-              }, animation: {
-                duration: 500 * 1.5,
-                easing: 'linear'
-              },
-              plugins: {
-                legend: {
-                  display: false
-                },
-                title: {
-                  display: true,
-                  text: 'RATING OF EACH COMPANY'
-                }
-              }
-            }
-          });
-
-          var pieChart2 = new Chart("pieChart-sideNav", {
-            type: 'pie',
-            data: dataChart,
-            options: {
-              responsive: true,
-              maintainAspectRatio: false,
-              plugins: {
-                legend: {
-                  position: "bottom"
-                },
-                title: {
-                  display: true,
-                  text: 'NUMBER OF HIRED APPLICANTS'
-                }
-              }
-            }
           });
 
           var barChart = new Chart("barChart", {
@@ -375,15 +353,11 @@ export class AdminDashboardComponent implements OnInit {
               datasets: [{
                 label: 'Number of Applicant',
                 data: this.studentCountSortedFive,
-                backgroundColor: this.colors,
-                borderColor: [],
-                borderWidth: 1
+                backgroundColor: ['#003049', '#f77f00', "#d62828", "#fcbf49", "#eae2b7"],
               }]
             },
             options: {
-              responsive: true,
               maintainAspectRatio: false,
-              indexAxis: 'y',
               scales: {
                 y: {
                   beginAtZero: true
@@ -395,10 +369,6 @@ export class AdminDashboardComponent implements OnInit {
               plugins: {
                 legend: {
                   display: false
-                },
-                title: {
-                  display: true,
-                  text: 'NUMBER OF APPLICATION PER COMPANY'
                 }
               }
             }
@@ -408,17 +378,8 @@ export class AdminDashboardComponent implements OnInit {
     })
   }
 
-  getRandomColor() {
-    var colors = ['rgba(255, 170, 40,1)',
-      '#cf542f'];
-    const random = Math.floor(Math.random() * colors.length);
-    return colors[random];
+  onCompanyChange(company: any) {
+    this.pieChart.data.datasets[0].data = this.perCompany[company].count;
+    this.pieChart.update();
   }
-
-  openBarChart() {
-    this.dialogRef.open(AdminViewTopcompanyComponent, {
-      width: "80%"
-    })
-  }
-
 }

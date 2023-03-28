@@ -2,42 +2,57 @@
 
 <div class="container" id="desktop-content">
     <div class="charts">
-        <div class="row">
-            <div class="bar-chart" (click)="openBarChart()">
-                <canvas id="barChart">
-                </canvas>
-            </div>
-            <div class="pie-chart">
-                <canvas id="pieChart"></canvas>
-            </div>
-        </div>
-        <div class="row">
-            <div class="bar-chart">
-                <canvas id="ratingChart">
-                </canvas>
-            </div>
-            <div class="counter-container">
-                <div class="student-count">
-                    <i class="material-icons">person</i>
-                    <div class="count-info">
-                        <h2>{{numberOfStudent}}</h2>
-                        <h3>Total Number of Applicants</h3>
+        <div class="row my-3">
+            <div class="col">
+                <div class="chart-container">
+                    <h3 class="fw-bold">NUMBER OF APPLICATION PER COMPANY</h3>
+                    <div style="height: 300px;">
+                        <canvas id="barChart"></canvas>
                     </div>
                 </div>
-                <div class="recruiter-count">
-                    <i class="material-icons">work</i>
-                    <div class="count-info">
-                        <h2>{{numberOfRecruiter}}</h2>
-                        <h3>Total Number of Recruiter</h3>
+            </div>
+            <div class="col">
+                <div class="chart-container h-100">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3 class="fw-bold m-0">STATUS OF APPLICANTS PER COMPANY</h3>
+                        <div>
+                            <select class="form-select form-select-sm" #com (change)="onCompanyChange(com.value)">
+                                <option *ngFor="let company of perCompany; let i = index" value="{{i}}">
+                                    {{company.companyName}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="height: 300px;">
+                        <canvas id="pieChart"></canvas>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="row">
-            <div class="bar-chart">
-                <canvas id="lineChart">
-                </canvas>
+        <div class="row mb-5">
+            <div class="col-8">
+                <div class="chart-container h-100">
+                    <h3 class="fw-bold">NUMBER OF GRADUATES HIRED PER MONTH</h3>
+                    <div class="h-100">
+                        <canvas id="lineChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="chart-container h-50 d-flex justify-content-between align-items-center mb-2">
+                    <div><i class="material-icons" style="font-size: 90px;">person</i></div>
+                    <div>
+                        <h1 style="font-size: 50px;">{{numberOfStudent}}</h1>
+                        <h3>Total Number of Applicants</h3>
+                    </div>
+                </div>
+                <div class="chart-container h-50 d-flex justify-content-between align-items-center">
+                    <div><i class="material-icons" style="font-size: 90px;">work</i></div>
+                    <div>
+                        <h1 style="font-size: 50px;">{{numberOfRecruiter}}</h1>
+                        <h3>Total Number of Recruiter</h3>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
