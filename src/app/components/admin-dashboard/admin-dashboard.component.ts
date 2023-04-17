@@ -34,6 +34,7 @@ export class AdminDashboardComponent implements OnInit {
   recruiterRatingCount: any = [];
   numberOfStudent = 0
   numberOfRecruiter = 0
+  recruiterCompany: any = [];
   sideNavOpened = false;
   checkAuth: boolean = false;
   user: any;
@@ -50,6 +51,8 @@ export class AdminDashboardComponent implements OnInit {
   hiredPerMonthData: any = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   hiredPerYearData: any = {}
   pieChart: any;
+  hiredPerMonthChart: any;
+  cn: any;
   sideNavClose() {
     this.sideNavOpened = false;
   }
@@ -198,7 +201,7 @@ export class AdminDashboardComponent implements OnInit {
           let details = {
             recruiterID: recruiter.id,
             companyName: recruiter.companyName,
-            count: [0, 0, 0, 0] // hired, processing, pending, confirmation
+            count: [[], [], [], []], // hired, processing, pending, confirmation
           };
           this.perCompany.push(details);
         }
@@ -211,16 +214,16 @@ export class AdminDashboardComponent implements OnInit {
             const index = this.perCompany.findIndex((obj) => obj.recruiterID === studentApp.recruiterId);
             switch (studentApp.status) {
               case "Hired":
-                this.perCompany[index].count[0]++;
+                this.perCompany[index].count[0].push(studentApp.date);
                 break;
               case "Processing":
-                this.perCompany[index].count[1]++;
+                this.perCompany[index].count[1].push(studentApp.date);
                 break;
               case "Pending":
-                this.perCompany[index].count[2]++;
+                this.perCompany[index].count[2].push(studentApp.date);
                 break;
               case "Confirmation":
-                this.perCompany[index].count[3]++;
+                this.perCompany[index].count[3].push(studentApp.date);
                 break;
 
               default:
@@ -251,11 +254,32 @@ export class AdminDashboardComponent implements OnInit {
       }
     });
 
+    const monthsLabels = ["January", "Febuary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    this.hiredPerMonthChart = new Chart("lineChart", {
+      type: 'line',
+      data: {
+        labels: monthsLabels,
+        datasets: [{
+          label: "Number of Graduates Hired per Month",
+          data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          backgroundColor: '#003049',
+          tension: 0.4
+        },]
+      }, options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      },
+    });
+
     get(recruiterRef).then((snapshot) => {
-      this.numberOfRecruiter = snapshot.size
       snapshot.forEach((item) => {
         var data = item.val()
         if (data.status == 'activated') {
+          this.recruiterCompany.push(data.companyName);
+
           this.studentApplication[data.id] = 0
           this.recruiterRating[data.id] = 0
           this.companyLabels[data.id] = data.companyName
@@ -311,75 +335,66 @@ export class AdminDashboardComponent implements OnInit {
         this.studentCountSortedFive = this.studentCountSorted.slice(0, 5)
         this.companyLabelsFive = this.barChartLabels.slice(0, 5)
       }).then(() => {
-        get(studentRef).then((snapshot) => {
-          this.hiredCount = 0
-          this.notHiredCount = 0
-          this.numberOfStudent = snapshot.size
-          snapshot.forEach((item) => {
-            var data = item.val()
-            if (data.hiredDate) {
-              var hiredDate = new Date(data.hiredDate)
-              this.hiredPerMonthData[hiredDate.getMonth()] += 1
-            }
-            if (data.hired) {
-              this.hiredCount++
-            }
-            else {
-              this.notHiredCount++
-            }
-          })
-        }).then(() => {
-          const monthsLabels = ["January", "Febuary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-          var lineChartData = {
-            labels: monthsLabels
-          }
-          var lineChart = new Chart("lineChart", {
-            type: 'line',
-            data: {
-              labels: monthsLabels,
-              datasets: [{
-                label: "Number of Graduates Hired per Month",
-                data: this.hiredPerMonthData,
-                backgroundColor: '#cf542f',
-                tension: 0.4
-              },]
-            },
-          });
-
-          var barChart = new Chart("barChart", {
-            type: 'bar',
-            data: {
-              labels: this.companyLabelsFive,
-              datasets: [{
-                label: 'Number of Applicant',
-                data: this.studentCountSortedFive,
-                backgroundColor: ['#003049', '#f77f00', "#d62828", "#fcbf49", "#eae2b7"],
-              }]
-            },
-            options: {
-              maintainAspectRatio: false,
-              scales: {
-                y: {
-                  beginAtZero: true
-                },
-              }, animation: {
-                duration: 500 * 1.5,
-                easing: 'linear'
+        var barChart = new Chart("barChart", {
+          type: 'bar',
+          data: {
+            labels: this.companyLabelsFive,
+            datasets: [{
+              label: 'Number of Applicant',
+              data: this.studentCountSortedFive,
+              backgroundColor: ['#003049', '#f77f00', "#d62828", "#fcbf49", "#eae2b7"],
+            }]
+          },
+          options: {
+            maintainAspectRatio: false,
+            scales: {
+              y: {
+                beginAtZero: true
               },
-              plugins: {
-                legend: {
-                  display: false
-                }
+            }, animation: {
+              duration: 500 * 1.5,
+              easing: 'linear'
+            },
+            plugins: {
+              legend: {
+                display: false
               }
             }
-          });
-        })
+          }
+        });
       })
     })
   }
 
   onCompanyChange(company: any) {
-    this.pieChart.data.datasets[0].data = this.perCompany[company].count;
+    var cn = this.perCompany[company].companyName;
+    var data = [this.perCompany[company].count[0].length,
+    this.perCompany[company].count[1].length,
+    this.perCompany[company].count[2].length,
+    this.perCompany[company].count[3].length];
+    this.pieChart.data.datasets[0].data = data;
     this.pieChart.update();
+    this.hiredPerMonth(company, this.perCompany[company].count[0]);
+    this.numberOfStudent = data[0] + data[1] + data[2] + data[3];
+
+    this.numberOfRecruiter = 0;
+    this.recruiterCompany.forEach((cname) => {
+      if (cname == cn) {
+       this. numberOfRecruiter++;
+      } 
+    });    
   }
+
+  hiredPerMonth(company: any, dates: []) {
+    var data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    dates.forEach((item) => {
+      var hiredDate = new Date(item);
+      data[hiredDate.getMonth()]++;
+    });
+    this.cn = this.perCompany[company].companyName;
+
+    this.hiredPerMonthChart.data.datasets[0].data = data;
+    this.hiredPerMonthChart.update();
+  }
+
 }
